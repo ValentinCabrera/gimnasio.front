@@ -9,8 +9,20 @@ const Sidebar = () => {
 
   const paginas = [
     {
-      nombre: "Example",
-      url: "/example",
+      nombre: "Planes",
+      url: "/planes",
+    },
+    {
+      nombre: "Alumnos",
+      url: "/clientes",
+    },
+    {
+      nombre: "Ficha",
+      url: "/ficha",
+    },
+    {
+      nombre: "Usuarios",
+      url: "/usuarios",
     },
   ];
 

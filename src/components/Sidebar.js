@@ -14,7 +14,7 @@ const Sidebar = () => {
     },
     {
       nombre: "Alumnos",
-      url: "/clientes",
+      url: "/alumnos",
     },
     {
       nombre: "Ficha",

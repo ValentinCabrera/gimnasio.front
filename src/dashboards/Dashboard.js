@@ -9,6 +9,7 @@ import EditClientPage from "../components/pages/EditClientePage/EditClientePage"
 import PagoClientPage from "../components/pages/PagoClientPage/PagoClientePage";
 import FichaPage from "../components/pages/FichaPage/FichaPage";
 import EditFichaPage from "../components/pages/EditFichaPage/EditFichaPage";
+import PerfilPage from "../components/pages/PerfiPage/PerfilPage";
 
 export const paginas = [
     {
@@ -28,15 +29,19 @@ export const paginas = [
         component: <EditPlanPage />
     },
     {
-        url: "/clientes",
+        url: "/alumnos",
         component: <ClientesPage />
     },
     {
-        url: "/clientes/editar/:id",
+        url: "/alumnos/perfil/:id",
+        component: <PerfilPage />
+    },
+    {
+        url: "/alumnos/editar/:id",
         component: <EditClientPage />
     },
     {
-        url: "/clientes/registrar-pago/:id",
+        url: "/alumnos/registrar-pago/:id",
         component: <PagoClientPage />
     },
     {

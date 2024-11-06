@@ -8,7 +8,7 @@ const ClientesPage = () =>{
 
         <>
             <Typography variant="h4"  >
-            Clientes
+            Alumnos
             </Typography>
        <ClientesList 
        onEdit={(() => navigate("./editar/1"))}

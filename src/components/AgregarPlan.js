@@ -9,60 +9,84 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 const AgregarPlan = () => {
   const [numDias, setNumDias] = useState(0);
   const [plan, setPlan] = useState([]);
-  const [clientes,setClientes] = useState([])
+  const [clientes, setClientes] = useState("");
 
-  // Actualiza el número de días del plan y crea un array para cada día
   const handleNumDiasChange = (event) => {
     const dias = event.target.value;
     setNumDias(dias);
-    setPlan(
-      new Array(dias).fill({ ejercicios: [] }).map(() => ({ ejercicios: [] }))
-    );
+    setPlan(new Array(dias).fill({ sets: [] }).map(() => ({ sets: [] })));
   };
 
-  const handleClientes = (event) =>{
-    const clientess = event.target.value
-    setClientes(clientess)
-  }
+  const handleClientes = (event) => {
+    setClientes(event.target.value);
+  };
 
-  // Maneja la actualización de un ejercicio específico en un día específico
-  const handleEjercicioChange = (diaIndex, ejercicioIndex, field, value) => {
+  const agregarSet = (diaIndex) => {
     const updatedPlan = [...plan];
-    const updatedDia = { ...updatedPlan[diaIndex] };
-    const updatedEjercicios = [...updatedDia.ejercicios];
-    updatedEjercicios[ejercicioIndex] = {
-      ...updatedEjercicios[ejercicioIndex],
-      [field]: value,
-    };
-    updatedDia.ejercicios = updatedEjercicios;
-    updatedPlan[diaIndex] = updatedDia;
+    updatedPlan[diaIndex].sets.push({ ejercicios: [] });
     setPlan(updatedPlan);
   };
 
-  const eliminarEjercicio = (diaIndex, ejercicioIndex) => {
+  const agregarEjercicio = (diaIndex, setIndex) => {
     const updatedPlan = [...plan];
-    updatedPlan[diaIndex].ejercicios.splice(ejercicioIndex, 1);
-    setPlan(updatedPlan);
-  };
-
-  // Agrega un nuevo ejercicio al día seleccionado
-  const agregarEjercicio = (diaIndex) => {
-    const updatedPlan = [...plan];
-    updatedPlan[diaIndex].ejercicios.push({
+    updatedPlan[diaIndex].sets[setIndex].ejercicios.push({
       nombre: "",
-      series: "",
-      repeticiones: "",
-      descanso: "",
+      series: [],
     });
     setPlan(updatedPlan);
   };
 
+  const agregarSerie = (diaIndex, setIndex, ejercicioIndex) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series.push({
+      reps: "",
+      tipo: "Reps",
+    });
+    setPlan(updatedPlan);
+  };
+
+  const handleEjercicioChange = (diaIndex, setIndex, ejercicioIndex, field, value) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex][field] = value;
+    setPlan(updatedPlan);
+  };
+
+  const handleSerieChange = (diaIndex, setIndex, ejercicioIndex, serieIndex, field, value) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series[serieIndex][field] = value;
+    setPlan(updatedPlan);
+  };
+
+  const eliminarSerie = (diaIndex, setIndex, ejercicioIndex, serieIndex) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series.splice(serieIndex, 1);
+    setPlan(updatedPlan);
+  };
+
+  const eliminarEjercicio = (diaIndex, setIndex, ejercicioIndex) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets[setIndex].ejercicios.splice(ejercicioIndex, 1);
+    setPlan(updatedPlan);
+  };
+
+  const eliminarSet = (diaIndex, setIndex) => {
+    const updatedPlan = [...plan];
+    updatedPlan[diaIndex].sets.splice(setIndex, 1);
+    setPlan(updatedPlan);
+  };
+
   const handleSubmit = () => {
-    console.log(plan);
-    console.log(numDias);
+    if (!clientes) {
+      alert("Por favor selecciona un alumno.");
+      return;
+    }
+    console.log("Plan guardado para:", clientes);
+    console.log("Días:", numDias);
+    console.log("Plan:", plan);
   };
 
   return (
@@ -77,7 +101,7 @@ const AgregarPlan = () => {
           displayEmpty
           fullWidth
         >
-          <MenuItem value={0} disabled>
+          <MenuItem value="" disabled>
             Selecciona un alumno
           </MenuItem>
           {["Juan Perez", "Tomas Blanco", "Valentin Cabrera", "Cbum"].map(
@@ -113,96 +137,76 @@ const AgregarPlan = () => {
       </Box>
 
       {plan.map((dia, diaIndex) => (
-        <Box
-          key={diaIndex}
-          mb={4}
-          p={2}
-          border={1}
-          borderColor="grey.300"
-          borderRadius={2}
-        >
+        <Box key={diaIndex} mb={4} p={2} border={1} borderColor="grey.300" borderRadius={2}>
           <Typography variant="h6">Día {diaIndex + 1}</Typography>
-          {dia.ejercicios.map((ejercicio, ejercicioIndex) => (
-            <Box
-              key={ejercicioIndex}
-              mb={2}
-              display="flex"
-              gap={2}
-              flexWrap="wrap"
-            >
-              <Box flex={1} minWidth="200px">
-                <TextField
-                  label="Ejercicio"
-                  value={ejercicio.nombre}
-                  onChange={(e) =>
-                    handleEjercicioChange(
-                      diaIndex,
-                      ejercicioIndex,
-                      "nombre",
-                      e.target.value
-                    )
-                  }
-                  fullWidth
-                />
+
+          {dia.sets.map((set, setIndex) => (
+            <Box key={setIndex} mb={2} p={2} border={1} borderColor="grey.400" borderRadius={2}>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h6">Set {setIndex + 1}</Typography>
+                <Button variant="outlined" onClick={() => agregarEjercicio(diaIndex, setIndex)}>
+                  Agregar Ejercicio
+                </Button>
+                <IconButton color="secondary" onClick={() => eliminarSet(diaIndex, setIndex)}>
+                  <DeleteIcon />
+                </IconButton>
               </Box>
-              <Box flex={1} minWidth="150px">
-                <TextField
-                  label="Series"
-                  type="number"
-                  value={ejercicio.series}
-                  onChange={(e) =>
-                    handleEjercicioChange(
-                      diaIndex,
-                      ejercicioIndex,
-                      "series",
-                      e.target.value
-                    )
-                  }
-                  fullWidth
-                />
-              </Box>
-              <Box flex={1} minWidth="150px">
-                <TextField
-                  label="Repeticiones"
-                  type="number"
-                  value={ejercicio.repeticiones}
-                  onChange={(e) =>
-                    handleEjercicioChange(
-                      diaIndex,
-                      ejercicioIndex,
-                      "repeticiones",
-                      e.target.value
-                    )
-                  }
-                  fullWidth
-                />
-              </Box>
-              <Box flex={1} minWidth="150px">
-                <TextField
-                  label="Descanso (seg)"
-                  type="number"
-                  value={ejercicio.descanso}
-                  onChange={(e) =>
-                    handleEjercicioChange(
-                      diaIndex,
-                      ejercicioIndex,
-                      "descanso",
-                      e.target.value
-                    )
-                  }
-                  fullWidth
-                />
-              </Box>
-              <IconButton
-                color="secondary"
-                onClick={() => eliminarEjercicio(diaIndex, ejercicioIndex)}
-              >
-                <DeleteIcon />
-              </IconButton>
+
+              {set.ejercicios.map((ejercicio, ejercicioIndex) => (
+                <Box key={ejercicioIndex} mb={2} p={1} display="flex" flexDirection="column" gap={2}>
+                  <Box display="flex" alignItems="center">
+                    <TextField
+                      label="Ejercicio"
+                      value={ejercicio.nombre}
+                      onChange={(e) =>
+                        handleEjercicioChange(diaIndex, setIndex, ejercicioIndex, "nombre", e.target.value)
+                      }
+                      fullWidth
+                    />
+                    <IconButton color="secondary" onClick={() => eliminarEjercicio(diaIndex, setIndex, ejercicioIndex)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
+                  <Button variant="outlined" onClick={() => agregarSerie(diaIndex, setIndex, ejercicioIndex)}>
+                    Agregar Serie
+                  </Button>
+
+                  {ejercicio.series.map((serie, serieIndex) => (
+                    <Box key={serieIndex} mb={2} display="flex" alignItems="center" gap={2}>
+                      <TextField
+                        label={`Serie ${serieIndex + 1}`}
+                        type="text"
+                        value={serie.reps}
+                        onChange={(e) =>
+                          handleSerieChange(diaIndex, setIndex, ejercicioIndex, serieIndex, "reps", e.target.value)
+                        }
+                        fullWidth
+                      />
+                      <Select
+                        value={serie.tipo}
+                        onChange={(e) =>
+                          handleSerieChange(diaIndex, setIndex, ejercicioIndex, serieIndex, "tipo", e.target.value)
+                        }
+                        fullWidth
+                      >
+                        <MenuItem value="Reps">Reps</MenuItem>
+                        <MenuItem value="Tiempo">Tiempo</MenuItem>
+                      </Select>
+                      <IconButton
+                        color="secondary"
+                        onClick={() => eliminarSerie(diaIndex, setIndex, ejercicioIndex, serieIndex)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  ))}
+                </Box>
+              ))}
             </Box>
           ))}
-          <Button variant="outlined" onClick={() => agregarEjercicio(diaIndex)}>
-            Agregar Ejercicio
+
+          <Button variant="outlined" onClick={() => agregarSet(diaIndex)}>
+            Agregar Set
           </Button>
         </Box>
       ))}

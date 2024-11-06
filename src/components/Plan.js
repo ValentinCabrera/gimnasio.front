@@ -32,28 +32,23 @@ const Plan = ({ cliente, plan }) => {
           <Typography variant="h6" gutterBottom>
             Día {diaIndex + 1}
           </Typography>
-          {dia.ejercicios.map((ejercicio, ejercicioIndex) => (
-            <Box key={ejercicioIndex} mb={2} display="flex" gap={2} flexWrap="wrap">
-              <Box flex={1} minWidth="200px">
-                <Typography variant="subtitle1">
-                  <strong>Ejercicio:</strong> {ejercicio.nombre}
-                </Typography>
-              </Box>
-              <Box flex={1} minWidth="150px">
-                <Typography variant="subtitle1">
-                  <strong>Series:</strong> {ejercicio.series}
-                </Typography>
-              </Box>
-              <Box flex={1} minWidth="150px">
-                <Typography variant="subtitle1">
-                  <strong>Repeticiones:</strong> {ejercicio.repeticiones}
-                </Typography>
-              </Box>
-              <Box flex={1} minWidth="150px">
-                <Typography variant="subtitle1">
-                  <strong>Descanso (seg):</strong> {ejercicio.descanso}
-                </Typography>
-              </Box>
+          {dia.sets.map((set, setIndex) => (
+            <Box key={setIndex} mb={3} p={2} border={1} borderColor="grey.400" borderRadius={2}>
+              <Typography variant="h6">Set {setIndex + 1}</Typography>
+              {set.ejercicios.map((ejercicio, ejercicioIndex) => (
+                <Box key={ejercicioIndex} mt={2}>
+                  <Typography variant="subtitle1">
+                    <strong>Ejercicio:</strong> {ejercicio.nombre || "Sin nombre"}
+                  </Typography>
+                  {ejercicio.series.map((serie, serieIndex) => (
+                    <Box key={serieIndex} ml={2} display="flex" gap={2}>
+                      <Typography variant="body2">
+                        <strong>Serie {serieIndex + 1}:</strong> {serie.reps} {serie.tipo} - Descanso {serie.descanso}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              ))}
             </Box>
           ))}
         </Box>

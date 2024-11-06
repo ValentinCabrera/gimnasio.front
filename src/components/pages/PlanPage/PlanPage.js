@@ -8,25 +8,104 @@ const PlanPage = () =>{
         edad: 30,
         email: "juan.perez@example.com",
       };
-      
       const plan = [
         {
-          ejercicios: [
-            { nombre: "Sentadillas", series: 3, repeticiones: 12, descanso: 60 },
-            { nombre: "Press Banca", series: 4, repeticiones: 10, descanso: 90 },
+          sets: [
+            {
+              ejercicios: [
+                {
+                  nombre: "Sentadillas",
+                  series: [
+                    { reps: "12", tipo: "Reps", descanso: 60 },
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                    { reps: "8", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+                {
+                  nombre: "Press Banca",
+                  series: [
+                    { reps: "10", tipo: "Reps", descanso: 90 },
+                    { reps: "8", tipo: "Reps", descanso: 90 },
+                    { reps: "6", tipo: "Reps", descanso: 90 },
+                  ],
+                },
+              ],
+            },
+            {
+              ejercicios: [ 
+                {
+                  nombre: "Dominadas",
+                  series: [
+                    { reps: "8", tipo: "Reps", descanso: 90 },
+                    { reps: "6", tipo: "Reps", descanso: 90 },
+                  ],
+                },
+              ],
+            },
           ],
         },
         {
-          ejercicios: [
-            { nombre: "Remo con barra", series: 3, repeticiones: 8, descanso: 60 },
+          sets: [
+            {
+              ejercicios: [
+                {
+                  nombre: "Remo con barra",
+                  series: [
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                    { reps: "8", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+              ],
+            },
           ],
         },
         {
-          ejercicios: [
-            { nombre: "Remo con barra", series: 3, repeticiones: 8, descanso: 60 },
+          sets: [
+            {
+              ejercicios: [
+                {
+                  nombre: "Peso muerto",
+                  series: [
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                    { reps: "8", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+                {
+                  nombre: "Curl de bíceps",
+                  series: [
+                    { reps: "12", tipo: "Reps", descanso: 60 },
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          sets: [
+            {
+              ejercicios: [
+                {
+                  nombre: "Peso muerto",
+                  series: [
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                    { reps: "8", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+                {
+                  nombre: "Press Militar",
+                  series: [
+                    { reps: "10", tipo: "Reps", descanso: 60 },
+                    { reps: "8", tipo: "Reps", descanso: 60 },
+                  ],
+                },
+              ],
+            },
           ],
         },
       ];
+      
+
     return(
         <Plan
         cliente={cliente}

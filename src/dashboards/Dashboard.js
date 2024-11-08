@@ -10,6 +10,12 @@ import PagoClientPage from "../components/pages/PagoClientPage/PagoClientePage";
 import FichaPage from "../components/pages/FichaPage/FichaPage";
 import EditFichaPage from "../components/pages/EditFichaPage/EditFichaPage";
 import PerfilPage from "../components/pages/PerfiPage/PerfilPage";
+import AdminProfesListPage from "../components/pages/AdminProfesList/AdminProfesListPage";
+import AlumnoPage from "../components/pages/AlumnoPage/AlumnoPage";
+import PlanViewClient from "../components/PlanViewClient";
+import ProfePage from "../components/pages/ProfePage/ProfePage";
+import ProfeSolicitudPage from "../components/ProfeSolicitudesPage/ProfeSolicitudPage";
+import CambiarPlan from "../components/CambiarPlan";
 
 export const paginas = [
     {
@@ -33,6 +39,26 @@ export const paginas = [
         component: <ClientesPage />
     },
     {
+        url: "/alumno",
+        component: <AlumnoPage />
+    },
+    {
+        url: "/profe",
+        component: <ProfePage />
+    },
+    {
+        url: "/profe/solicitudes",
+        component: <ProfeSolicitudPage />
+    },
+    {
+        url: "/profe/solicitudes/cambiar-plan/:id",
+        component: <CambiarPlan />
+    },
+    {
+        url: "/alumno/mi-plan",
+        component: <PlanViewClient />
+    },
+    {
         url: "/alumnos/perfil/:id",
         component: <PerfilPage />
     },
@@ -51,6 +77,10 @@ export const paginas = [
     {
         url: "/ficha/editar/:id",
         component: <EditFichaPage />
+    },
+    {
+        url: "/admin/profesores",
+        component: <AdminProfesListPage />
     },
 ]
 

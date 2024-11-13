@@ -4,55 +4,73 @@ import { Box, Typography, Paper } from "@mui/material";
 const Plan = ({ cliente, plan }) => {
   return (
     <Box p={3}>
-      {/* Información del Cliente */}
       <Paper elevation={3} style={{ padding: "20px", marginBottom: "20px" }}>
         <Typography variant="h4" gutterBottom>
           Información del Cliente
         </Typography>
-        <Typography variant="subtitle1">
-          <strong>Nombre:</strong> {cliente.nombre}
-        </Typography>
-        <Typography variant="subtitle1">
-          <strong>ID:</strong> {cliente.id}
-        </Typography>
-        <Typography variant="subtitle1">
-          <strong>Edad:</strong> {cliente.edad}
-        </Typography>
-        <Typography variant="subtitle1">
-          <strong>Email:</strong> {cliente.email}
-        </Typography>
+        {cliente.nombre}
       </Paper>
 
-      {/* Plan de Entrenamiento */}
-      <Typography variant="h4" gutterBottom>
-        Plan de Entrenamiento
-      </Typography>
-      {plan.map((dia, diaIndex) => (
-        <Box key={diaIndex} mb={4} p={2} border={1} borderColor="grey.300" borderRadius={2}>
-          <Typography variant="h6" gutterBottom>
-            Día {diaIndex + 1}
-          </Typography>
-          {dia.sets.map((set, setIndex) => (
-            <Box key={setIndex} mb={3} p={2} border={1} borderColor="grey.400" borderRadius={2}>
-              <Typography variant="h6">Set {setIndex + 1}</Typography>
-              {set.ejercicios.map((ejercicio, ejercicioIndex) => (
-                <Box key={ejercicioIndex} mt={2}>
-                  <Typography variant="subtitle1">
-                    <strong>Ejercicio:</strong> {ejercicio.nombre || "Sin nombre"}
-                  </Typography>
-                  {ejercicio.series.map((serie, serieIndex) => (
-                    <Box key={serieIndex} ml={2} display="flex" gap={2}>
-                      <Typography variant="body2">
-                        <strong>Serie {serieIndex + 1}:</strong> {serie.reps} {serie.tipo} - Descanso {serie.descanso}
+      <Paper elevation={3} style={{ padding: "20px", marginBottom: "20px" }}>
+        <Typography variant="h4" gutterBottom>
+          {plan.nombre}
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          {plan.descripcion}
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Profesor: {plan.profesor.nombre} {plan.profesor.apellido}
+        </Typography>
+        {plan.dias_entrenamiento.map((dia) => (
+          <Box key={dia.id} mt={3}>
+            <Typography variant="h5" gutterBottom style={{ marginTop: "20px" }}>
+              Día {dia.numero}
+            </Typography>
+
+            {/* Series */}
+            {dia.series.map((serie) => (
+              <Box key={serie.id} ml={3} mt={2}>
+                <Typography variant="h6">Serie {serie.orden}</Typography>
+                <Typography>Repeticiones: {serie.repeticiones}</Typography>
+                <Typography>
+                  Descanso Intermedio: {serie.descanso_intermedio} segundos
+                </Typography>
+                <Typography>
+                  Descanso Final: {serie.descanso_final} segundos
+                </Typography>
+
+                {/* Ejercicios */}
+                <Box mt={1}>
+                  {serie.ejercicios.map((ejercicio) => (
+                    <Box key={ejercicio.id} ml={2} mt={1}>
+                      <Typography variant="subtitle1">
+                        {ejercicio.nombre} - Dificultad: {ejercicio.dificultad}
+                      </Typography>
+
+                      <Box sx={{display:"flex"}}> 
+                      <Typography>Repeticiones:</Typography>
+                      {[...Array(serie.repeticiones)].map((_, index) => (
+                        <Typography
+                          key={index}
+                          style={{ display: "inline", marginRight: "8px" }}
+                        >
+                          {ejercicio.repeticiones}
+                        </Typography>
+                      ))}
+                      </Box>
+
+                      <Typography>
+                        Descanso Intermedio: {ejercicio.descanso_intermedio}{" "}
+                        segundos
                       </Typography>
                     </Box>
                   ))}
                 </Box>
-              ))}
-            </Box>
-          ))}
-        </Box>
-      ))}
+              </Box>
+            ))}
+          </Box>
+        ))}
+      </Paper>
     </Box>
   );
 };

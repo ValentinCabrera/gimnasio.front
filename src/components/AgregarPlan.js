@@ -9,12 +9,15 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CrearPlanIa from "./CrearPlanIAModal";
+import useFetch, { host } from "../utils/Fetch";
 
 const AgregarPlan = () => {
   const [numDias, setNumDias] = useState(0);
   const [plan, setPlan] = useState([]);
   const [clientes, setClientes] = useState("");
-
+  const [isOpen, setOpen] = useState(false);
+  const { postFetch } = useFetch
   const handleNumDiasChange = (event) => {
     const dias = event.target.value;
     setNumDias(dias);
@@ -42,28 +45,48 @@ const AgregarPlan = () => {
 
   const agregarSerie = (diaIndex, setIndex, ejercicioIndex) => {
     const updatedPlan = [...plan];
-    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series.push({
-      reps: "",
-      tipo: "Reps",
-    });
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series.push(
+      {
+        reps: "",
+        tipo: "Reps",
+      }
+    );
     setPlan(updatedPlan);
   };
 
-  const handleEjercicioChange = (diaIndex, setIndex, ejercicioIndex, field, value) => {
+  const handleEjercicioChange = (
+    diaIndex,
+    setIndex,
+    ejercicioIndex,
+    field,
+    value
+  ) => {
     const updatedPlan = [...plan];
-    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex][field] = value;
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex][field] =
+      value;
     setPlan(updatedPlan);
   };
 
-  const handleSerieChange = (diaIndex, setIndex, ejercicioIndex, serieIndex, field, value) => {
+  const handleSerieChange = (
+    diaIndex,
+    setIndex,
+    ejercicioIndex,
+    serieIndex,
+    field,
+    value
+  ) => {
     const updatedPlan = [...plan];
-    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series[serieIndex][field] = value;
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series[
+      serieIndex
+    ][field] = value;
     setPlan(updatedPlan);
   };
 
   const eliminarSerie = (diaIndex, setIndex, ejercicioIndex, serieIndex) => {
     const updatedPlan = [...plan];
-    updatedPlan[diaIndex].sets[setIndex].ejercicios[ejercicioIndex].series.splice(serieIndex, 1);
+    updatedPlan[diaIndex].sets[setIndex].ejercicios[
+      ejercicioIndex
+    ].series.splice(serieIndex, 1);
     setPlan(updatedPlan);
   };
 
@@ -89,8 +112,43 @@ const AgregarPlan = () => {
     console.log("Plan:", plan);
   };
 
+
+  const handleModalOpen = () =>{
+    setOpen(true)
+
+  }
+  const handleModalClose = () =>{
+    setOpen(false)
+
+  }
+
+
+
   return (
     <Box p={3}>
+      <Box p={3} sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={handleModalOpen}
+          sx={{
+            background: "#ff3535",
+            color: "#fff",
+            padding: "8px 16px",
+            borderRadius: "20px",
+            fontWeight: "bold",
+            transition: "transform 0.3s",
+            "&:hover": {
+              background: "#ff1e1e",
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          Crear plan con IA
+        </Button>
+      </Box>
+
       <Typography variant="h4" gutterBottom>
         Asignar Alumno
       </Typography>
@@ -137,55 +195,122 @@ const AgregarPlan = () => {
       </Box>
 
       {plan.map((dia, diaIndex) => (
-        <Box key={diaIndex} mb={4} p={2} border={1} borderColor="grey.300" borderRadius={2}>
+        <Box
+          key={diaIndex}
+          mb={4}
+          p={2}
+          border={1}
+          borderColor="grey.300"
+          borderRadius={2}
+        >
           <Typography variant="h6">Día {diaIndex + 1}</Typography>
 
           {dia.sets.map((set, setIndex) => (
-            <Box key={setIndex} mb={2} p={2} border={1} borderColor="grey.400" borderRadius={2}>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box
+              key={setIndex}
+              mb={2}
+              p={2}
+              border={1}
+              borderColor="grey.400"
+              borderRadius={2}
+            >
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
                 <Typography variant="h6">Set {setIndex + 1}</Typography>
-                <Button variant="outlined" onClick={() => agregarEjercicio(diaIndex, setIndex)}>
+                <Button
+                  variant="outlined"
+                  onClick={() => agregarEjercicio(diaIndex, setIndex)}
+                >
                   Agregar Ejercicio
                 </Button>
-                <IconButton color="secondary" onClick={() => eliminarSet(diaIndex, setIndex)}>
+                <IconButton
+                  color="secondary"
+                  onClick={() => eliminarSet(diaIndex, setIndex)}
+                >
                   <DeleteIcon />
                 </IconButton>
               </Box>
 
               {set.ejercicios.map((ejercicio, ejercicioIndex) => (
-                <Box key={ejercicioIndex} mb={2} p={1} display="flex" flexDirection="column" gap={2}>
+                <Box
+                  key={ejercicioIndex}
+                  mb={2}
+                  p={1}
+                  display="flex"
+                  flexDirection="column"
+                  gap={2}
+                >
                   <Box display="flex" alignItems="center">
                     <TextField
                       label="Ejercicio"
                       value={ejercicio.nombre}
                       onChange={(e) =>
-                        handleEjercicioChange(diaIndex, setIndex, ejercicioIndex, "nombre", e.target.value)
+                        handleEjercicioChange(
+                          diaIndex,
+                          setIndex,
+                          ejercicioIndex,
+                          "nombre",
+                          e.target.value
+                        )
                       }
                       fullWidth
                     />
-                    <IconButton color="secondary" onClick={() => eliminarEjercicio(diaIndex, setIndex, ejercicioIndex)}>
+                    <IconButton
+                      color="secondary"
+                      onClick={() =>
+                        eliminarEjercicio(diaIndex, setIndex, ejercicioIndex)
+                      }
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </Box>
-                  <Button variant="outlined" onClick={() => agregarSerie(diaIndex, setIndex, ejercicioIndex)}>
+                  <Button
+                    variant="outlined"
+                    onClick={() =>
+                      agregarSerie(diaIndex, setIndex, ejercicioIndex)
+                    }
+                  >
                     Agregar Serie
                   </Button>
 
                   {ejercicio.series.map((serie, serieIndex) => (
-                    <Box key={serieIndex} mb={2} display="flex" alignItems="center" gap={2}>
+                    <Box
+                      key={serieIndex}
+                      mb={2}
+                      display="flex"
+                      alignItems="center"
+                      gap={2}
+                    >
                       <TextField
                         label={`Serie ${serieIndex + 1}`}
                         type="text"
                         value={serie.reps}
                         onChange={(e) =>
-                          handleSerieChange(diaIndex, setIndex, ejercicioIndex, serieIndex, "reps", e.target.value)
+                          handleSerieChange(
+                            diaIndex,
+                            setIndex,
+                            ejercicioIndex,
+                            serieIndex,
+                            "reps",
+                            e.target.value
+                          )
                         }
                         fullWidth
                       />
                       <Select
                         value={serie.tipo}
                         onChange={(e) =>
-                          handleSerieChange(diaIndex, setIndex, ejercicioIndex, serieIndex, "tipo", e.target.value)
+                          handleSerieChange(
+                            diaIndex,
+                            setIndex,
+                            ejercicioIndex,
+                            serieIndex,
+                            "tipo",
+                            e.target.value
+                          )
                         }
                         fullWidth
                       >
@@ -194,7 +319,14 @@ const AgregarPlan = () => {
                       </Select>
                       <IconButton
                         color="secondary"
-                        onClick={() => eliminarSerie(diaIndex, setIndex, ejercicioIndex, serieIndex)}
+                        onClick={() =>
+                          eliminarSerie(
+                            diaIndex,
+                            setIndex,
+                            ejercicioIndex,
+                            serieIndex
+                          )
+                        }
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -214,6 +346,9 @@ const AgregarPlan = () => {
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Guardar Plan
       </Button>
+
+      {isOpen && <CrearPlanIa onClose={handleModalClose}  />}
+
     </Box>
   );
 };

@@ -1,116 +1,42 @@
+import { useEffect, useState } from "react";
 import Plan from "../../Plan";
+import { useParams } from "react-router-dom";
+import useFetch, { host } from "../../../utils/Fetch";
+import axios from "axios";
+const PlanPage = () => {
+  const [plan2, setPlan2] = useState(null);
+  const { id } = useParams();
+  const { getFetch } = useFetch();
 
+  useEffect(() => {
+    const getPlan = async () => {
+      try {
+        //const response = await getFetch(`${host}planes/planes/${id}/`);
+        const response2 = await axios.get(`${host}planes/planes/${id}/`);
+        console.log("data", response2.data);
+        setPlan2(response2.data);
+      } catch (error) {
+        console.error("hubo un error xd", error);
+      }
+    };
 
-const PlanPage = () =>{
-    const cliente = {
-        nombre: "Juan Pérez",
-        id: "12345",
-        edad: 30,
-        email: "juan.perez@example.com",
-      };
-      const plan = [
-        {
-          sets: [
-            {
-              ejercicios: [
-                {
-                  nombre: "Sentadillas",
-                  series: [
-                    { reps: "12", tipo: "Reps", descanso: 60 },
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                    { reps: "8", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-                {
-                  nombre: "Press Banca",
-                  series: [
-                    { reps: "10", tipo: "Reps", descanso: 90 },
-                    { reps: "8", tipo: "Reps", descanso: 90 },
-                    { reps: "6", tipo: "Reps", descanso: 90 },
-                  ],
-                },
-              ],
-            },
-            {
-              ejercicios: [ 
-                {
-                  nombre: "Dominadas",
-                  series: [
-                    { reps: "8", tipo: "Reps", descanso: 90 },
-                    { reps: "6", tipo: "Reps", descanso: 90 },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          sets: [
-            {
-              ejercicios: [
-                {
-                  nombre: "Remo con barra",
-                  series: [
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                    { reps: "8", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          sets: [
-            {
-              ejercicios: [
-                {
-                  nombre: "Peso muerto",
-                  series: [
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                    { reps: "8", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-                {
-                  nombre: "Curl de bíceps",
-                  series: [
-                    { reps: "12", tipo: "Reps", descanso: 60 },
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          sets: [
-            {
-              ejercicios: [
-                {
-                  nombre: "Peso muerto",
-                  series: [
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                    { reps: "8", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-                {
-                  nombre: "Press Militar",
-                  series: [
-                    { reps: "10", tipo: "Reps", descanso: 60 },
-                    { reps: "8", tipo: "Reps", descanso: 60 },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ];
-      
+    getPlan();
+  }, [id]);
 
-    return(
-        <Plan
-        cliente={cliente}
-        plan={plan} />
-    )
-}
+  const cliente = {
+    nombre: "Juan Pérez",
+    id: "12345",
+    edad: 30,
+    email: "juan.perez@example.com",
+  };
+  console.log("render", plan2);
+
+  return (
+    <>
+      <h1>Plan</h1>
+      {plan2 ? <Plan plan={plan2} cliente={cliente} /> : <p>Cargando...</p>}
+    </>
+  );
+};
 
 export default PlanPage;

@@ -16,6 +16,7 @@ import PlanViewClient from "../components/PlanViewClient";
 import ProfePage from "../components/pages/ProfePage/ProfePage";
 import ProfeSolicitudPage from "../components/ProfeSolicitudesPage/ProfeSolicitudPage";
 import CambiarPlan from "../components/CambiarPlan";
+import AgregarProfesor from "../components/AgregarProfesor";
 
 export const paginas = [
     {
@@ -81,6 +82,10 @@ export const paginas = [
     {
         url: "/admin/profesores",
         component: <AdminProfesListPage />
+    },
+    {
+        url: "/admin/profesores/agregar",
+        component: <AgregarProfesor />
     },
 ]
 

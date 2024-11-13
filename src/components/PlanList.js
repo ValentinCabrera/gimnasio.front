@@ -11,18 +11,18 @@ import {
   Chip,
   Box,
 } from "@mui/material";
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
-import EditIcon from '@mui/icons-material/Edit';
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import SportsGymnasticsIcon from "@mui/icons-material/SportsGymnastics";
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useNavigate } from "react-router-dom";
 
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-const PlanList = ({onEdit,onDelete, onDetalle}) => {
-  const clientes = [
-    { id: 1, nombre: "Juan Pérez", estado: "pagado", tipo: "Musculacion" },
-    { id: 2, nombre: "Ana García", estado: "no pagado", tipo: "Funcional" },
-    { id: 3, nombre: "Carlos López", estado: "pagado", tipo: "Musculacion"  },
-  ];
+const PlanList = ({ planes, onEdit, onDelete, onDetalle }) => {
+  const navigate = useNavigate()
 
+  const handleClick = (id) =>{
+    navigate(`./verplan/${id}`)
+  }
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -30,38 +30,30 @@ const PlanList = ({onEdit,onDelete, onDetalle}) => {
           <TableRow>
             <TableCell>ID</TableCell>
             <TableCell>Nombre</TableCell>
-            <TableCell>Tipo</TableCell>
-            <TableCell>Estado</TableCell>
+            <TableCell>Descripción</TableCell>
+            <TableCell>Profesor</TableCell>
+            <TableCell>Días de Entrenamiento</TableCell>
             <TableCell>Acciones</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {clientes.map((cliente) => (
-            <TableRow key={cliente.id}>
-              <TableCell>{cliente.id}</TableCell>
-              <TableCell>{cliente.nombre}</TableCell>
+          {planes.map((plan) => (
+            <TableRow key={plan.id}>
+              <TableCell>{plan.id}</TableCell>
+              <TableCell>{plan.nombre}</TableCell>
+              <TableCell>{plan.descripcion}</TableCell>
+              <TableCell>{plan.profesor.nombre} {plan.profesor.apellido}</TableCell>
               <TableCell>
-              <Chip icon={ cliente.tipo === 'Funcional' ?  <SportsGymnasticsIcon/>: <FitnessCenterIcon />} label={cliente.tipo} variant="outlined" color="primary" />
-
+                {plan.dias_entrenamiento.length}
               </TableCell>
               <TableCell>
-                <Chip
-                  label={cliente.estado === "pagado" ? "Pagado" : "No Pagado"}
-                  color={cliente.estado === "pagado" ? "success" : "error"}
-                />
-              </TableCell>
-              <TableCell>
-                <Box
-                sx={{
-                    display:"flex",
-                    gap:"5px"
-                }}>
+                <Box sx={{ display: "flex", gap: "5px" }}>
                   <Button
                     size="small"
                     variant="contained"
                     color="primary"
-                    onClick={() => onDetalle(cliente.id)}
-                    startIcon = {<RemoveRedEyeIcon /> }
+                    onClick={() => handleClick(plan.id)} 
+                    startIcon={<RemoveRedEyeIcon />}
                   >
                     Ver Plan
                   </Button>
@@ -69,7 +61,7 @@ const PlanList = ({onEdit,onDelete, onDetalle}) => {
                     size="small"
                     variant="outlined"
                     color="primary"
-                    onClick={() => onEdit(cliente.id)}
+                    onClick={() => onEdit(plan.id)}
                     startIcon={<EditIcon />}
                   >
                     Editar

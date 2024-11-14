@@ -33,7 +33,6 @@ const PlanPage = () => {
 
   return (
     <>
-      <h1>Plan</h1>
       {plan2 ? <Plan plan={plan2} cliente={cliente} /> : <p>Cargando...</p>}
     </>
   );

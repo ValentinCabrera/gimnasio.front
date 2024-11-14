@@ -1,7 +1,19 @@
-import React from "react";
-import { Box, Typography, Paper } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Paper, Collapse, IconButton } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const Plan = ({ cliente, plan }) => {
+
+  const [openDays, setOpenDays] = useState({});
+
+  const toggleCollapse = (dayId) => {
+    setOpenDays((prev) => ({
+      ...prev,
+      [dayId]: !prev[dayId],
+    }));
+  };
+
   return (
     <Box p={3}>
       <Paper elevation={3} style={{ padding: "20px", marginBottom: "20px" }}>
@@ -23,51 +35,56 @@ const Plan = ({ cliente, plan }) => {
         </Typography>
         {plan.dias_entrenamiento.map((dia) => (
           <Box key={dia.id} mt={3}>
-            <Typography variant="h5" gutterBottom style={{ marginTop: "20px" }}>
-              Día {dia.numero}
-            </Typography>
+            <Box display="flex" alignItems="center">
+              <Typography variant="h5" gutterBottom style={{ marginTop: "20px", fontWeight:"bold" }}>
+                Día Entrenamiento {dia.numero}
+              </Typography>
+              <IconButton onClick={() => toggleCollapse(dia.id)}>
+                {openDays[dia.id] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </IconButton>
+            </Box>
 
-            {/* Series */}
-            {dia.series.map((serie) => (
-              <Box key={serie.id} ml={3} mt={2}>
-                <Typography variant="h6">Serie {serie.orden}</Typography>
-                <Typography>Repeticiones: {serie.repeticiones}</Typography>
-                <Typography>
-                  Descanso Intermedio: {serie.descanso_intermedio} segundos
-                </Typography>
-                <Typography>
-                  Descanso Final: {serie.descanso_final} segundos
-                </Typography>
+            <Collapse in={openDays[dia.id]}>
 
-                {/* Ejercicios */}
-                <Box mt={1}>
-                  {serie.ejercicios.map((ejercicio) => (
-                    <Box key={ejercicio.id} ml={2} mt={1}>
-                      <Typography variant="subtitle1">
-                        {ejercicio.nombre} - Dificultad: {ejercicio.dificultad}
-                      </Typography>
+              {dia.series.map((serie) => (
+                <Box key={serie.id} ml={3} mt={2}>
+                  <Typography variant="h6"  sx={{fontWeight:"bold"}}>Serie {serie.orden}</Typography>
+                  <Typography>Sets: {serie.repeticiones}</Typography>
+                  <Typography>
+                    Descanso Intermedio: {serie.descanso_intermedio} segundos
+                  </Typography>
+                  <Typography>
+                    Descanso Final: {serie.descanso_final} segundos
+                  </Typography>
 
-                      <Box sx={{display:"flex"}}> 
-                      <Typography>Repeticiones:</Typography>
-                      {[...Array(serie.repeticiones)].map((_, index) => (
-                        <Typography
-                          key={index}
-                          style={{ display: "inline", marginRight: "8px" }}
-                        >
-                          {ejercicio.repeticiones}
+                  <Box mt={1}>
+                    {serie.ejercicios.map((ejercicio) => (
+                      <Box key={ejercicio.id} ml={2} mt={1}>
+                        <Typography variant="subtitle1">
+                          <b>{ejercicio.nombre}</b> - Dificultad: {ejercicio.dificultad}
                         </Typography>
-                      ))}
-                      </Box>
 
-                      <Typography>
-                        Descanso Intermedio: {ejercicio.descanso_intermedio}{" "}
-                        segundos
-                      </Typography>
-                    </Box>
-                  ))}
+                        <Box sx={{ display: "flex" }}>
+                          <Typography><b>Repeticiones: </b></Typography>
+                          {[...Array(serie.repeticiones)].map((_, index) => (
+                            <Typography
+                              key={index}
+                              style={{ display: "inline", marginRight: "8px" }}
+                            >
+                              {ejercicio.repeticiones}
+                            </Typography>
+                          ))}
+                        </Box>
+
+                        <Typography>
+                          <b>Descanso Intermedio:</b> {ejercicio.descanso_intermedio} segundos
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Collapse>
           </Box>
         ))}
       </Paper>

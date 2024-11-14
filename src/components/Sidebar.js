@@ -13,6 +13,18 @@ const Sidebar = () => {
       url: "/planes",
     },
     {
+      nombre: "Mi perfil (profe)",
+      url: "/profe",
+    },
+    {
+      nombre: "Mi perfil (alumno)",
+      url: "/alumno",
+    },
+    {
+      nombre: "Mi Plan",
+      url: "/alumno/mi-plan",
+    },
+    {
       nombre: "Alumnos",
       url: "/alumnos",
     },
@@ -21,9 +33,10 @@ const Sidebar = () => {
       url: "/ficha",
     },
     {
-      nombre: "Usuarios",
-      url: "/usuarios",
+      nombre: "Profes List",
+      url: "/admin/profesores",
     },
+  
   ];
 
   const toggleDrawer = () => {

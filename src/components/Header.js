@@ -5,8 +5,20 @@ import Logo from '../imgs/logo.png'
 
 export default function Header() {
   return (
-      <AppBar sx={{background:'#de0202', padding:{xs:'2px', md:'10px'}}}>
+      <AppBar sx={{background:'#de0202', padding:{xs:'2px', md:'1px'}}}>
         <Toolbar sx={{display:'flex', justifyContent:'space-between'}}>
+        <Box
+        sx={{
+          flex: "0 0 auto",
+          marginRight: "20px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      >
+        <Sidebar />
+      </Box>
           <Box sx={{display:'flex', alignItems:'center', flex:1}}>
             <Box sx={{width:'80px'}}>
               <img src={Logo} style={{width:'100%'}}/>
@@ -21,9 +33,9 @@ export default function Header() {
               <Button sx={{color:'#fff'}}>
                 <Typography fontSize={'22px'} fontWeight={'bold'}>Contacto</Typography>
               </Button>
-              <Button sx={{color:'#fff'}}>
+              {/* <Button sx={{color:'#fff'}}>
                 <Typography fontSize={'22px'} fontWeight={'bold'}>Mis planes</Typography>
-              </Button>
+              </Button> */}
             </Box>
           </Box>
           <Box sx={{flex:1, display:'flex', justifyContent:'flex-end'}}>

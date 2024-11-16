@@ -17,6 +17,7 @@ import ProfePage from "../components/pages/ProfePage/ProfePage";
 import ProfeSolicitudPage from "../components/ProfeSolicitudesPage/ProfeSolicitudPage";
 import CambiarPlan from "../components/CambiarPlan";
 import AgregarProfesor from "../components/AgregarProfesor";
+import AgregarAlumno from "../components/AgregarAlumno";
 
 export const paginas = [
     {
@@ -38,6 +39,10 @@ export const paginas = [
     {
         url: "/alumnos",
         component: <ClientesPage />
+    },
+    {
+        url: "/alumnos/agregar",
+        component: <AgregarAlumno />
     },
     {
         url: "/alumno",

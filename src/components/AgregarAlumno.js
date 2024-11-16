@@ -35,7 +35,7 @@ const AgregarAlumno = () => {
       }
     };
     fetchPlanes();
-  }, [getFetch]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

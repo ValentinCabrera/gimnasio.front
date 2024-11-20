@@ -14,10 +14,11 @@ import AdminProfesListPage from "../components/pages/AdminProfesList/AdminProfes
 import AlumnoPage from "../components/pages/AlumnoPage/AlumnoPage";
 import PlanViewClient from "../components/PlanViewClient";
 import ProfePage from "../components/pages/ProfePage/ProfePage";
-import ProfeSolicitudPage from "../components/ProfeSolicitudesPage/ProfeSolicitudPage";
+import ProfeSolicitudPage from "../components/pages/ProfeSolicitudesPage/ProfeSolicitudPage"
 import CambiarPlan from "../components/CambiarPlan";
 import AgregarProfesor from "../components/AgregarProfesor";
 import AgregarAlumno from "../components/AgregarAlumno";
+import AgregarFicha from "../components/AgregarFicha";
 
 export const paginas = [
     {
@@ -81,8 +82,8 @@ export const paginas = [
         component: <FichaPage />
     },
     {
-        url: "/ficha/editar/:id",
-        component: <EditFichaPage />
+        url: "/ficha/agregar",
+        component: <AgregarFicha />
     },
     {
         url: "/admin/profesores",

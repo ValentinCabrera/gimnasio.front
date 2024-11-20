@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ProfeSolicitudList from "../ProfeSolicitudList";
+import ProfeSolicitudList from "../../ProfeSolicitudList";
 
 
 const ProfeSolicitudPage = () =>{

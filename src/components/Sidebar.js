@@ -1,11 +1,24 @@
 import { useState } from "react";
-import { Drawer, List, ListItem, Typography, IconButton } from "@mui/material";
+import { Drawer, List, ListItem, Typography, IconButton, Collapse } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const navigate = useNavigate();
+
+  const adminPages = [
+    {
+      nombre: "Profesores",
+      url: "/admin/profesores",
+    },
+    {
+      nombre:" Ejercicios",
+      url: "/admin/ejercicios",
+    }
+  ];
 
   const paginas = [
     {
@@ -43,6 +56,9 @@ const Sidebar = () => {
     setOpen(!open);
   };
 
+  const toggleAdmin = () => {
+    setAdmin(!admin);
+  }
   return (
     <>
 
@@ -91,8 +107,77 @@ const Sidebar = () => {
                   {pagina.nombre}
                 </Typography>
               </ListItem>
+
             );
           })}
+
+            <ListItem
+             sx={{
+              cursor: "pointer",
+              paddingY: "20px",
+              maxWidth: "250px",
+              background: "white",
+              borderRadius: "50px 0px 0px 50px",
+              padding: "20px 50px 20px 30px",
+              transition: "background 0.3s ease",
+              "&:hover": {
+                background: "red",
+              },
+            }}
+            onClick={toggleAdmin}> 
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "18px",
+              }}
+            >
+              Admin
+            </Typography>
+            <ExpandMoreIcon 
+              sx={{
+                transition: "transform 0.3s",
+                transform: admin ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+            </ListItem>
+
+            <Collapse in={admin} timeout="auto" unmountOnExit >
+              {adminPages.map((pagina) => {
+                return (
+                  <ListItem
+                    sx={{
+                      cursor: "pointer",
+                      paddingY: "20px",
+                      maxWidth: "250px",
+                      background: "white",
+                      borderRadius: "50px 0px 0px 50px",
+                      padding: "20px 50px 20px 30px",
+                      transition: "background 0.3s ease",
+                      '&:hover': {
+                        background: "#ffe600"
+                      }
+                    }}
+                    key={pagina.nombre}
+                    onClick={() => {
+                      if (pagina.url) {
+                        navigate(pagina.url);
+                        toggleDrawer();
+                      }
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                      }}
+                    >
+                      {pagina.nombre}
+                    </Typography>
+                  </ListItem>
+                );
+              })}
+            </Collapse>
+
         </List>
       </Drawer>
     </>

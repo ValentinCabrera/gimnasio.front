@@ -19,6 +19,8 @@ import CambiarPlan from "../components/CambiarPlan";
 import AgregarProfesor from "../components/AgregarProfesor";
 import AgregarAlumno from "../components/AgregarAlumno";
 import AgregarFicha from "../components/AgregarFicha";
+import AgregarEjercicio from "../components/AgregarEjercicio";
+import AdminEjericiosListPage from "../components/pages/AdminEjerciciosList/AdminEjerciciosListPage";
 
 export const paginas = [
     {
@@ -92,6 +94,14 @@ export const paginas = [
     {
         url: "/admin/profesores/agregar",
         component: <AgregarProfesor />
+    },
+    {
+        url: "/admin/ejercicios/agregar",
+        component: <AgregarEjercicio />
+    },
+    {
+        url: "/admin/ejercicios",
+        component: <AdminEjericiosListPage />
     },
 ]
 

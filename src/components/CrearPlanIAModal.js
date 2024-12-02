@@ -174,7 +174,6 @@ const CrearPlanIa = ({ onClose, onUpdate }) => {
           ))}
         </Stack>
 
-        {/* Botones */}
         <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
           <Button
             onClick={handleSubmit}

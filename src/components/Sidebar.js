@@ -3,10 +3,16 @@ import { Drawer, List, ListItem, Typography, IconButton, Collapse } from "@mui/m
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import useUser from "../hooks/useUser";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
+  //const { usuario } = useUser();
+  const usuario = {
+    alumno: false,
+    admin: true
+  }
   const navigate = useNavigate();
 
   const adminPages = [
@@ -15,12 +21,27 @@ const Sidebar = () => {
       url: "/admin/profesores",
     },
     {
-      nombre:" Ejercicios",
+      nombre: "Ejercicios",
       url: "/admin/ejercicios",
+    },
+    {
+      nombre: "Ficha",
+      url: "/admin/ficha",
     }
   ];
 
-  const paginas = [
+  const paginasAlumnos = [
+    {
+      nombre: "Mi perfil (alumno)",
+      url: "/alumno",
+    },
+    {
+      nombre: "Mi Plan",
+      url: "/alumno/mi-plan",
+    },
+  ];
+
+  const paginasProfesores = [
     {
       nombre: "Planes",
       url: "/planes",
@@ -30,10 +51,6 @@ const Sidebar = () => {
       url: "/profe",
     },
     {
-      nombre: "Mi perfil (alumno)",
-      url: "/alumno",
-    },
-    {
       nombre: "Mi Plan",
       url: "/alumno/mi-plan",
     },
@@ -41,15 +58,6 @@ const Sidebar = () => {
       nombre: "Alumnos",
       url: "/alumnos",
     },
-    {
-      nombre: "Ficha",
-      url: "/ficha",
-    },
-    {
-      nombre: "Profes List",
-      url: "/admin/profesores",
-    },
-  
   ];
 
   const toggleDrawer = () => {
@@ -58,10 +66,120 @@ const Sidebar = () => {
 
   const toggleAdmin = () => {
     setAdmin(!admin);
-  }
+  };
+
+  const renderPages = () => {
+    if (usuario.admin) {
+      return (
+        <>
+          {paginasAlumnos.map((pagina) => (
+            <ListItem
+              sx={listItemStyles}
+              key={pagina.nombre}
+              onClick={() => {
+                if (pagina.url) {
+                  navigate(pagina.url);
+                  toggleDrawer();
+                }
+              }}
+            >
+              <Typography sx={typographyStyles}>{pagina.nombre}</Typography>
+            </ListItem>
+          ))}
+          {paginasProfesores.map((pagina) => (
+            <ListItem
+              sx={listItemStyles}
+              key={pagina.nombre}
+              onClick={() => {
+                if (pagina.url) {
+                  navigate(pagina.url);
+                  toggleDrawer();
+                }
+              }}
+            >
+              <Typography sx={typographyStyles}>{pagina.nombre}</Typography>
+            </ListItem>
+          ))}
+          <ListItem sx={listItemStyles} onClick={toggleAdmin}>
+            <Typography sx={typographyStyles}>Admin</Typography>
+            <ExpandMoreIcon
+              sx={{
+                transition: "transform 0.3s",
+                transform: admin ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+          </ListItem>
+          <Collapse in={admin} timeout="auto" unmountOnExit>
+            {adminPages.map((pagina) => (
+              <ListItem
+                sx={listItemStyles}
+                key={pagina.nombre}
+                onClick={() => {
+                  if (pagina.url) {
+                    navigate(pagina.url);
+                    toggleDrawer();
+                  }
+                }}
+              >
+                <Typography sx={typographyStyles}>{pagina.nombre}</Typography>
+              </ListItem>
+            ))}
+          </Collapse>
+        </>
+      );
+    } else if (usuario.alumno) {
+      return paginasAlumnos.map((pagina) => (
+        <ListItem
+          sx={listItemStyles}
+          key={pagina.nombre}
+          onClick={() => {
+            if (pagina.url) {
+              navigate(pagina.url);
+              toggleDrawer();
+            }
+          }}
+        >
+          <Typography sx={typographyStyles}>{pagina.nombre}</Typography>
+        </ListItem>
+      ));
+    } else {
+      return paginasProfesores.map((pagina) => (
+        <ListItem
+          sx={listItemStyles}
+          key={pagina.nombre}
+          onClick={() => {
+            if (pagina.url) {
+              navigate(pagina.url);
+              toggleDrawer();
+            }
+          }}
+        >
+          <Typography sx={typographyStyles}>{pagina.nombre}</Typography>
+        </ListItem>
+      ));
+    }
+  };
+
+  const listItemStyles = {
+    cursor: "pointer",
+    paddingY: "20px",
+    maxWidth: "250px",
+    background: "white",
+    borderRadius: "50px 0px 0px 50px",
+    padding: "20px 50px 20px 30px",
+    transition: "background 0.3s ease",
+    "&:hover": {
+      background: "#ffe600",
+    },
+  };
+
+  const typographyStyles = {
+    fontWeight: "bold",
+    fontSize: "18px",
+  };
+
   return (
     <>
-
       <IconButton onClick={toggleDrawer}>
         <MenuIcon />
       </IconButton>
@@ -73,111 +191,7 @@ const Sidebar = () => {
             paddingTop: "50px",
           }}
         >
-          {paginas.map((pagina) => {
-            if (pagina.notShow) return null;
-
-            return (
-              <ListItem
-                sx={{
-                  cursor: "pointer",
-                  paddingY: "20px",
-                  maxWidth: "250px",
-                  background: "white",
-                  borderRadius: "50px 0px 0px 50px",
-                  padding: "20px 50px 20px 30px",
-                  transition: "background 0.3s ease",
-                  '&:hover': {
-                    background: "#ffe600"
-                  }
-                }}
-                key={pagina.nombre}
-                onClick={() => {
-                  if (pagina.url) {
-                    navigate(pagina.url);
-                    toggleDrawer();
-                  }
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: "18px",
-                  }}
-                >
-                  {pagina.nombre}
-                </Typography>
-              </ListItem>
-
-            );
-          })}
-
-            <ListItem
-             sx={{
-              cursor: "pointer",
-              paddingY: "20px",
-              maxWidth: "250px",
-              background: "white",
-              borderRadius: "50px 0px 0px 50px",
-              padding: "20px 50px 20px 30px",
-              transition: "background 0.3s ease",
-              "&:hover": {
-                background: "red",
-              },
-            }}
-            onClick={toggleAdmin}> 
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "18px",
-              }}
-            >
-              Admin
-            </Typography>
-            <ExpandMoreIcon 
-              sx={{
-                transition: "transform 0.3s",
-                transform: admin ? "rotate(180deg)" : "rotate(0deg)",
-              }}
-            />
-            </ListItem>
-
-            <Collapse in={admin} timeout="auto" unmountOnExit >
-              {adminPages.map((pagina) => {
-                return (
-                  <ListItem
-                    sx={{
-                      cursor: "pointer",
-                      paddingY: "20px",
-                      maxWidth: "250px",
-                      background: "white",
-                      borderRadius: "50px 0px 0px 50px",
-                      padding: "20px 50px 20px 30px",
-                      transition: "background 0.3s ease",
-                      '&:hover': {
-                        background: "#ffe600"
-                      }
-                    }}
-                    key={pagina.nombre}
-                    onClick={() => {
-                      if (pagina.url) {
-                        navigate(pagina.url);
-                        toggleDrawer();
-                      }
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: "18px",
-                      }}
-                    >
-                      {pagina.nombre}
-                    </Typography>
-                  </ListItem>
-                );
-              })}
-            </Collapse>
-
+          {renderPages()}
         </List>
       </Drawer>
     </>

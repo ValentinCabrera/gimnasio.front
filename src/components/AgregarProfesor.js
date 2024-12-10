@@ -39,7 +39,7 @@ const AgregarProfesor = () => {
 
     try {
       const data = await postFetch(
-        `${host}planes/profesores/`,
+        `${host}usuarios/profesores/`,
         profesor
       );
       console.log("Producto registrado con éxito:", data);

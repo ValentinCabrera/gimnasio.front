@@ -49,7 +49,7 @@ const AgregarFicha = () => {
       setLoading(false);
     }
 
-    navigate('/ficha')
+    navigate('/admin/ficha')
 
   };
   

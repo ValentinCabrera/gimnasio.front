@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -15,17 +15,37 @@ import useFetch, { host } from "../utils/Fetch";
 const AgregarPlan = () => {
   const [numDias, setNumDias] = useState(0);
   const [plan, setPlan] = useState([]);
-  const [clientes, setClientes] = useState("");
+  const [clientes, setClientes] = useState([]);
   const [isOpen, setOpen] = useState(false);
-  const { postFetch } = useFetch
+  const { postFetch, getFetch } = useFetch();
+  const [selectedCliente, setSelectedCliente] = useState('');
+
+
+  useEffect(() => {
+
+    const fetchClientes = async () => {
+      try {
+        const response = await getFetch(`${host}planes/alumnos/busqueda/`);
+        console.log(response.data);
+        setClientes(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+      }
+
+
+    }
+
+    fetchClientes();
+  }, []);
+
   const handleNumDiasChange = (event) => {
-    const dias = event.target.value;
+    const dias = parseInt(event.target.value, 10);
     setNumDias(dias);
     setPlan(new Array(dias).fill({ sets: [] }).map(() => ({ sets: [] })));
   };
 
   const handleClientes = (event) => {
-    setClientes(event.target.value);
+    setSelectedCliente(event.target.value);
   };
 
   const agregarSet = (diaIndex) => {
@@ -102,17 +122,56 @@ const AgregarPlan = () => {
     setPlan(updatedPlan);
   };
 
-  const handleSubmit = () => {
-    if (!clientes) {
+  const handleSubmit = async () => {
+
+    if (!selectedCliente) {
       alert("Por favor selecciona un alumno.");
       return;
     }
-    console.log("Plan guardado para:", clientes);
-    console.log("Días:", numDias);
-    console.log("Plan:", plan);
+
+    if (plan.length === 0 || !plan.some((dia) => dia.sets.length > 0)) {
+      alert("El plan debe tener al menos un set con ejercicios.");
+      return;
+    }
+
+    const formattedPlan = plan.map((dia) => ({
+      sets: dia.sets.map((set) => ({
+        ejercicios: set.ejercicios.map((ejercicio) => ({
+          nombre: ejercicio.nombre,
+          series: ejercicio.series.map((serie) => ({
+            reps: serie.reps,
+            tipo: serie.tipo,
+          })),
+        })),
+      })),
+    }));
+
+    const planData = {
+      alumno: selectedCliente, 
+      profesor: 1,
+      nombre: "Plan de entrenamiento",
+      descripcion: "Plan de entrenamiento creado por el profesor",
+      plan_entrenamiento: formattedPlan, 
+    };
+  
+    console.log("Datos que se enviarán:", planData);
+  
+    try {
+ 
+      const response = await postFetch(`${host}/entrenamiento/planes/`, planData);
+  
+      if (response.ok) {
+        alert("Plan guardado exitosamente");
+      } else {
+        console.error("Error al guardar el plan:", response);
+        alert("Hubo un problema al guardar el plan. Revisa los datos e inténtalo nuevamente.");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+      alert("Ocurrió un error al enviar el plan. Inténtalo nuevamente.");
+    }
   };
-
-
+  
   const handleModalOpen = () =>{
     setOpen(true)
 
@@ -154,7 +213,7 @@ const AgregarPlan = () => {
       </Typography>
       <Box mb={3}>
         <Select
-          value={clientes}
+          value={selectedCliente}
           onChange={handleClientes}
           displayEmpty
           fullWidth
@@ -162,10 +221,9 @@ const AgregarPlan = () => {
           <MenuItem value="" disabled>
             Selecciona un alumno
           </MenuItem>
-          {["Juan Perez", "Tomas Blanco", "Valentin Cabrera", "Cbum"].map(
-            (alumno) => (
-              <MenuItem key={alumno} value={alumno}>
-                {alumno}
+          {clientes.map((cliente) => (
+              <MenuItem key={cliente.id} value={cliente.id}>
+                     {cliente.nombre} {cliente.apellido}
               </MenuItem>
             )
           )}

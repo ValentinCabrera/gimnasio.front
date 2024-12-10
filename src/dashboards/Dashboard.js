@@ -1,121 +1,167 @@
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "../layouts/Layout";
-import PlanesPage from "../components/pages/PlanesPage/PlanesPage";
+import LoginPage from "../pages/Login/LoginPage";
+import RegisterPage from "../pages/Register/RegisterPage";
+import PlanesPage from "../pages/PlanesPage/PlanesPage";
+import PrivateRoute from "./PrivateRoute";
 import AgregarPlan from "../components/AgregarPlan";
-import PlanPage from "../components/pages/PlanPage/PlanPage";
-import EditPlanPage from "../components/pages/EditPlanPage/EditPlanPage";
-import ClientesPage from "../components/pages/ClientesPage/ClientesPage";
-import EditClientPage from "../components/pages/EditClientePage/EditClientePage";
-import PagoClientPage from "../components/pages/PagoClientPage/PagoClientePage";
-import FichaPage from "../components/pages/FichaPage/FichaPage";
-import EditFichaPage from "../components/pages/EditFichaPage/EditFichaPage";
-import PerfilPage from "../components/pages/PerfiPage/PerfilPage";
-import AdminProfesListPage from "../components/pages/AdminProfesList/AdminProfesListPage";
-import AlumnoPage from "../components/pages/AlumnoPage/AlumnoPage";
-import PlanViewClient from "../components/PlanViewClient";
-import ProfePage from "../components/pages/ProfePage/ProfePage";
-import ProfeSolicitudPage from "../components/pages/ProfeSolicitudesPage/ProfeSolicitudPage"
-import CambiarPlan from "../components/CambiarPlan";
-import AgregarProfesor from "../components/AgregarProfesor";
+import PlanPage from "../pages/PlanPage/PlanPage";
+import AlumnoPage from "../pages/AlumnoPage/AlumnoPage";
+import ClientesPage from "../pages/ClientesPage/ClientesPage";
 import AgregarAlumno from "../components/AgregarAlumno";
+import PlanViewClient from "../components/PlanViewClient";
+import ProfeRoute from "./ProfeRoute";
+import ProfePage from "../pages/ProfePage/ProfePage";
+import ProfeSolicitudPage from "../pages/ProfeSolicitudesPage/ProfeSolicitudPage";
+import AdminRoute from "./AdminRoute";
+import FichaPage from "../pages/FichaPage/FichaPage";
 import AgregarFicha from "../components/AgregarFicha";
+import AdminProfesListPage from "../pages/AdminProfesList/AdminProfesListPage";
+import AgregarProfesor from "../components/AgregarProfesor";
+import AdminEjericiosListPage from "../pages/AdminEjerciciosList/AdminEjerciciosListPage";
 import AgregarEjercicio from "../components/AgregarEjercicio";
-import AdminEjericiosListPage from "../components/pages/AdminEjerciciosList/AdminEjerciciosListPage";
 
-export const paginas = [
+const router = createBrowserRouter([
     {
-        url: "/planes",
-        component: <PlanesPage />
+        path: "/", 
+        element: <Layout />,
+        children: [
+            {
+                path: "login",
+                element: <LoginPage />,
+            },
+            {
+                path: "registro",
+                element: <RegisterPage />,
+            },
+            {
+                path: "planes",
+                element: (
+                    <ProfeRoute>
+                        <PlanesPage />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "planes/agregar",
+                element: (
+                    <ProfeRoute>
+                        <AgregarPlan />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "planes/verplan/:id",
+                element: (
+                    <ProfeRoute>
+                        <PlanPage />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "alumno",
+                element: (
+                    <PrivateRoute>
+                        <AlumnoPage />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "alumno/mi-plan",
+                element: (
+                    <PrivateRoute>
+                        <PlanViewClient />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "profe",
+                element: (
+                    <ProfeRoute>
+                        <ProfePage />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "profe/solicitudes",
+                element: (
+                    <ProfeRoute>
+                        <ProfeSolicitudPage />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "alumnos",
+                element: (
+                    <ProfeRoute>
+                        <ClientesPage />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "alumnos/agregar",
+                element: (
+                    <ProfeRoute>
+                        <AgregarAlumno />
+                    </ProfeRoute>
+                ),
+            },
+            {
+                path: "admin/ficha",
+                element:(
+                    <AdminRoute>
+                        <FichaPage />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "admin/ficha/agregar",
+                element:(
+                    <AdminRoute>
+                        <AgregarFicha />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "admin/profesores",
+                element:(
+                    <AdminRoute>
+                        <AdminProfesListPage />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "admin/profesores/agregar",
+                element:(
+                    <AdminRoute>
+                        <AgregarProfesor />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "admin/ejercicios",
+                element:(
+                    <AdminRoute>
+                        <AdminEjericiosListPage />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "admin/ejercicios/agregar",
+                element:(
+                    <AdminRoute>
+                        <AgregarEjercicio />
+                    </AdminRoute>
+                )
+            },
+            {
+                path: "/*",
+                element: <h1>404</h1>,
+            },
+        ],
     },
-    {
-        url: "/planes/agregar",
-        component: <AgregarPlan />
-    },
-    {
-        url: "/planes/verplan/:id",
-        component: <PlanPage />
-    },
-    {
-        url: "/planes/editar/:id",
-        component: <EditPlanPage />
-    },
-    {
-        url: "/alumnos",
-        component: <ClientesPage />
-    },
-    {
-        url: "/alumnos/agregar",
-        component: <AgregarAlumno />
-    },
-    {
-        url: "/alumno",
-        component: <AlumnoPage />
-    },
-    {
-        url: "/profe",
-        component: <ProfePage />
-    },
-    {
-        url: "/profe/solicitudes",
-        component: <ProfeSolicitudPage />
-    },
-    {
-        url: "/profe/solicitudes/cambiar-plan/:id",
-        component: <CambiarPlan />
-    },
-    {
-        url: "/alumno/mi-plan",
-        component: <PlanViewClient />
-    },
-    {
-        url: "/alumnos/perfil/:id",
-        component: <PerfilPage />
-    },
-    {
-        url: "/alumnos/editar/:id",
-        component: <EditClientPage />
-    },
-    {
-        url: "/alumnos/registrar-pago/:id",
-        component: <PagoClientPage />
-    },
-    {
-        url: "/ficha",
-        component: <FichaPage />
-    },
-    {
-        url: "/ficha/agregar",
-        component: <AgregarFicha />
-    },
-    {
-        url: "/admin/profesores",
-        component: <AdminProfesListPage />
-    },
-    {
-        url: "/admin/profesores/agregar",
-        component: <AgregarProfesor />
-    },
-    {
-        url: "/admin/ejercicios/agregar",
-        component: <AgregarEjercicio />
-    },
-    {
-        url: "/admin/ejercicios",
-        component: <AdminEjericiosListPage />
-    },
-]
+]);
 
-export default function Dashboard() {
-    return (
-        <Routes>
-            <Route element={<Layout />}>
-
-                {paginas.map((pagina, index) => (
-                    <Route key={index} path={pagina.url} element={pagina.component} />
-                ))}
-
-                <Route path="*" element={<h1>404</h1>} />
-            </Route>
-        </Routes>
-    )
+export default function RoutesDash() {
+    return <RouterProvider router={router} />;
 }

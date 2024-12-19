@@ -2,8 +2,10 @@ import { AppBar, Box, Button, List, ListItem, ListItemText, Toolbar, Typography 
 import Sidebar from "./Sidebar";
 
 import Logo from '../imgs/logo.png'
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
       <AppBar sx={{background:'#de0202', padding:{xs:'2px', md:'1px'}}}>
         <Toolbar sx={{display:'flex', justifyContent:'space-between'}}>
@@ -39,7 +41,7 @@ export default function Header() {
             </Box>
           </Box>
           <Box sx={{flex:1, display:'flex', justifyContent:'flex-end'}}>
-            <Button><Typography fontSize={'22px'} sx={{color:'#fff'}}>Iniciar sesión</Typography></Button>
+            <Button onClick={(() => navigate('./login'))}><Typography fontSize={'22px'} sx={{color:'#fff'}}>Iniciar sesión</Typography></Button>
           </Box>
         </Toolbar>
       </AppBar>

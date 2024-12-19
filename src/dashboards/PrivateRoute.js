@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { UserContext } from "../contexts/UserContext";
+import { Navigate} from 'react-router-dom';
 import useUser from '../hooks/useUser';
 
 export default function PrivateRoute({children}) {
     //const { isLogged } = useUser();
-    const isLogged = false;
+    const isLogged = true;
     return isLogged ? children : <Navigate to="/login" />;
 };

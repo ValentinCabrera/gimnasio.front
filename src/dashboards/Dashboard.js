@@ -20,12 +20,17 @@ import AdminProfesListPage from "../pages/AdminProfesList/AdminProfesListPage";
 import AgregarProfesor from "../components/AgregarProfesor";
 import AdminEjericiosListPage from "../pages/AdminEjerciciosList/AdminEjerciciosListPage";
 import AgregarEjercicio from "../components/AgregarEjercicio";
+import HomePage from "../pages/HomePage/HomePage";
 
 const router = createBrowserRouter([
     {
         path: "/", 
         element: <Layout />,
         children: [
+            {
+                path: "/",
+                element: <HomePage />,
+            },
             {
                 path: "login",
                 element: <LoginPage />,

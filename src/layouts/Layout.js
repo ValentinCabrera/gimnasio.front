@@ -13,8 +13,8 @@ export default function Layout() {
             {isLogin && <Header />}
             <div style={{
                 flex: 1,
-                marginTop: '64px',
-                padding: "30px",
+                marginTop: '0px',
+                padding: "0px",
                 overflowY: "auto",
             }}>
                 <Outlet />

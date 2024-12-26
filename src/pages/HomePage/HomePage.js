@@ -1,14 +1,10 @@
 import React from 'react';
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material';
-import { useTheme, useMediaQuery } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import backgroundImage from '../../imgs/background.jpg'; // Ruta de tu imagen
 
 const GymMenu = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
     <Box
       sx={{
@@ -23,10 +19,11 @@ const GymMenu = () => {
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        paddingLeft: '5rem',
-        paddingTop: '6rem',
+        paddingLeft: { xs: '1rem', sm: '3rem', md: '5rem' },
+        paddingTop: { xs: '6rem', sm: '9rem', md: '9rem' },
       }}
     >
+      {/* Navbar */}
       <AppBar position="static" sx={{ background: 'transparent', boxShadow: 'none' }}>
         <Toolbar>
           <Typography
@@ -35,9 +32,8 @@ const GymMenu = () => {
               fontFamily: 'Anton, sans-serif',
               fontWeight: 'bold',
               color: 'white',
-              paddingLeft: '0rem',
-              fontSize: '3.1rem', // Tamaño más grande para el título
-              letterSpacing: '0.1em', // Espaciado entre letras
+              fontSize: { xs: '2rem', sm: '4rem', md: '5rem' },
+              mt: -3,
             }}
           >
             CENTRAL GYM
@@ -45,61 +41,83 @@ const GymMenu = () => {
         </Toolbar>
       </AppBar>
 
+      {/* Contenido principal */}
       <Container
         maxWidth="sm"
         sx={{
           padding: 0,
           margin: 0,
-          textAlign: 'center', // Centrar el contenido
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
         }}
       >
-        <Typography
-          variant={isMobile ? 'h4' : 'h2'}
-          sx={{
-            fontFamily: 'Anton, sans-serif',
-            fontWeight: 'bold',
-            textAlign: 'left',
-            color: '#ff383e',
-            mb: 2,
-            fontSize: isMobile ? '4rem' : '5.5rem', // Tamaño más grande para el texto principal
-          }}
-        >
-          AQUI EMPIEZA TU TRANSFORMACION.
-        </Typography>
-
-        {/* Contenedor para los botones */}
+        {/* Título */}
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column', // Botones uno debajo del otro
-            alignItems: 'left', // Centrar horizontalmente
-            gap: 1, // Espaciado entre los botones
-            width: '100%', // Ocupa el ancho completo del contenedor
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            width: '100%',
+            whiteSpace: 'normal',
+            overflow: 'visible',
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontFamily: 'Anton, sans-serif',
+              fontWeight: 'bold',
+              textAlign: 'left',
+              color: '#ff383e',
+              fontSize: { xs: '2.5rem', sm: '4rem', md: '6rem' },
+              lineHeight: '1.1',
+              wordWrap: 'break-word',
+              mt: -3,
+            }}
+          >
+            AQUI EMPIEZA TU TRANSFORMACION.
+          </Typography>
+        </Box>
+
+        {/* Botones alineados a la izquierda */}
+        <Box
+          sx={{
+            display: 'flex',
+            textAlign: 'left',
+            flexDirection: 'column',
+            paddingLeft: { xs: '1rem', sm: '2rem' },
+            paddingTop: '0rem',
+            gap: 2,
           }}
         >
           <Button
             variant="contained"
             sx={{
               fontFamily: 'Poppins, sans-serif',
-              backgroundColor: '#808080', // Color gris
+              backgroundColor: '#808080',
               color: 'white',
-              width: '50%', // Ancho del botón
+              width: { xs: '150px', sm: '200px' },
               textTransform: 'none',
-              borderRadius: '50px', // Botón redondeado
+              borderRadius: '50px',
+              fontWeight: 'bold',
+              fontSize: { xs: '0.9rem', sm: '1rem' },
               '&:hover': { backgroundColor: '#666666' },
             }}
           >
-            Iniciar Sesion
+            Iniciar Sesión
           </Button>
           <Button
             variant="contained"
             sx={{
               fontFamily: 'Poppins, sans-serif',
-              backgroundColor: '#ff0000',
+              backgroundColor: '#808080',
               color: 'white',
-              width: '50%', // Ancho del botón
+              width: { xs: '150px', sm: '200px' },
               textTransform: 'none',
-              borderRadius: '50px', // Botón redondeado
+              borderRadius: '50px',
+              fontWeight: 'bold',
+              fontSize: { xs: '0.9rem', sm: '1rem' },
               '&:hover': { backgroundColor: '#cc0000' },
             }}
           >
@@ -111,13 +129,14 @@ const GymMenu = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center', // Centrar los iconos horizontalmente
-            gap: 1,
-            mt: 1,
+            justifyContent: 'left',
+            flexWrap: 'wrap',
+            gap: 2,
+            paddingLeft: { xs: '1.5rem', sm: '5.7rem' },
           }}
         >
-          <InstagramIcon sx={{ color: 'white', fontSize: 30 }} />
-          <WhatsAppIcon sx={{ color: 'white', fontSize: 30 }} />
+          <InstagramIcon sx={{ color: 'white', fontSize: { xs: 24, sm: 30 } }} />
+          <WhatsAppIcon sx={{ color: 'white', fontSize: { xs: 24, sm: 30 } }} />
         </Box>
       </Container>
     </Box>

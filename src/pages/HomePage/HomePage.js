@@ -4,11 +4,16 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import backgroundImage from '../../imgs/background.jpg'; 
 import iniciosesionjpg from '../../imgs/iniciosesion.jpg'; 
+import registrarjpg from '../../imgs/Registrar.jpg'; 
 
 const GymMenu = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+  
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => setOpenLogin(false);
+  const handleOpenRegister = () => setOpenRegister(true);
+  const handleCloseRegister = () => setOpenRegister(false);
 
   return (
     <Box
@@ -107,7 +112,7 @@ const GymMenu = () => {
               fontSize: { xs: '0.9rem', sm: '1rem' },
               '&:hover': { backgroundColor: '#666666' },
             }}
-            onClick={handleOpen}
+            onClick={handleOpenLogin}
           >
             Iniciar Sesión
           </Button>
@@ -124,6 +129,7 @@ const GymMenu = () => {
               fontSize: { xs: '0.9rem', sm: '1rem' },
               '&:hover': { backgroundColor: '#cc0000' },
             }}
+            onClick={handleOpenRegister}
           >
             ¡Regístrate Ahora!
           </Button>
@@ -144,94 +150,87 @@ const GymMenu = () => {
         </Box>
       </Container>
 
+      {/* Modal de Inicio de Sesión */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openLogin}
+        onClose={handleCloseLogin}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            width: { xs: '90%', sm: '70%', md: '50%' },
-            height: { xs: '80vh', sm: '60vh' },
-            borderRadius: '10px',
-            overflow: 'hidden',
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            width: { xs: "90%", sm: "70%", md: "50%" },
+            height: { xs: "80vh", sm: "60vh" },
+            borderRadius: "10px",
+            overflow: "hidden",
             boxShadow: 24,
-            position: 'relative', // Added for diagonal line positioning
+            position: "relative",
           }}
         >
-          {/* Diagonal line overlay */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              pointerEvents: 'none', // Makes the line not interfere with clicks
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                right: '50%',
-                width: '2px', // Line thickness
-                height: '140%', // Makes line longer to ensure it covers the diagonal
-                background: 'white',
-                transform: 'rotate(15deg)', // Adjust angle as needed
-                transformOrigin: 'top',
-                boxShadow: '0 0 8px rgba(0,0,0,0.3)', // Optional shadow effect
-              },
-              display: { xs: 'none', sm: 'block' }, // Only show on larger screens
-            }}
-          />
-
           {/* Sección Roja */}
           <Box
             sx={{
               flex: 1,
-              backgroundColor: '#ff383e',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
+              backgroundColor: "#ff383e",
+              padding: "2rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
             }}
           >
             <Typography
               variant="h5"
-              sx={{ color: 'white', fontWeight: 'bold', marginBottom: '1rem' }}
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+              }}
             >
               Usuario:
             </Typography>
             <TextField
               variant="outlined"
               fullWidth
+              placeholder="Ingrese su usuario"
               sx={{
-                marginBottom: '1.5rem',
-                backgroundColor: '#FFC1C1',
-                borderRadius: '25px',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'transparent',
+                marginBottom: "1.5rem",
+                backgroundColor: "#FFC1C1",
+                borderRadius: "25px",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "transparent",
                   },
-                  '&:hover fieldset': {
-                    borderColor: 'transparent',
+                  "&:hover fieldset": {
+                    borderColor: "transparent",
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'white',
+                  "&.Mui-focused fieldset": {
+                    borderColor: "transparent",
                   },
+                },
+                "& .MuiOutlinedInput-root.Mui-focused": {
+                  backgroundColor: "#FFC1C1",
+                },
+                "& input": {
+                  padding: "12px 16px",
+                  fontSize: "16px",
                 },
               }}
             />
+
             <Typography
               variant="h5"
-              sx={{ color: 'white', fontWeight: 'bold', marginBottom: '1rem' }}
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+              }}
             >
               Contraseña:
             </Typography>
@@ -239,25 +238,56 @@ const GymMenu = () => {
               type="password"
               variant="outlined"
               fullWidth
+              placeholder="Ingrese su contraseña"
               sx={{
-                backgroundColor: '#FFC1C1',
-                borderRadius: '25px',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'transparent',
+                backgroundColor: "#FFC1C1",
+                borderRadius: "25px",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "transparent",
                   },
-                  '&:hover fieldset': {
-                    borderColor: 'transparent',
+                  "&:hover fieldset": {
+                    borderColor: "transparent",
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'white',
+                  "&.Mui-focused fieldset": {
+                    borderColor: "transparent",
                   },
+                },
+                "& .MuiOutlinedInput-root.Mui-focused": {
+                  backgroundColor: "#FFC1C1",
+                },
+                "& input": {
+                  padding: "12px 16px",
+                  fontSize: "16px",
                 },
               }}
             />
+
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: "1.5rem",
+                backgroundColor: "white",
+                color: "#ff383e",
+                fontWeight: "bold",
+                textTransform: "none",
+                borderRadius: "25px",
+                padding: "10px 20px",
+                "&:hover": {
+                  backgroundColor: "#ffecec",
+                },
+              }}
+            >
+              Ingresar
+            </Button>
             <Typography
               variant="body2"
-              sx={{ color: 'white', marginTop: '1rem', cursor: 'pointer' }}
+              sx={{
+                color: "white",
+                marginTop: "1rem",
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}
             >
               ¿Olvidó su Contraseña?
             </Typography>
@@ -268,16 +298,186 @@ const GymMenu = () => {
             sx={{
               flex: 1,
               backgroundImage: `url(${iniciosesionjpg})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           />
         </Box>
       </Modal>
+{/* Modal de Registro */}
+<Modal
+        open={openRegister}
+        onClose={handleCloseRegister}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: { xs: "90%", sm: "80%", md: "70%" },
+            height: { xs: "90vh", sm: "80vh", md: "70vh" },
+            borderRadius: "10px",
+            overflow: "hidden",
+            boxShadow: 24,
+            position: "relative",
+            backgroundImage: `url(${registrarjpg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* Formulario centrado */}
+          <Box
+            sx={{
+              width: { xs: "85%", sm: "320px" },
+              padding: "1.5rem",
+              backgroundColor: "rgba(128, 128, 128, 0.85)",
+              borderRadius: "15px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 1.5,
+            }}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                marginBottom: "-0.5rem",
+              }}
+            >
+              Nombre:
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#E8E8E8",
+                  borderRadius: "25px",
+                  "& fieldset": { border: "none" },
+                },
+              }}
+            />
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                marginBottom: "-0.5rem",
+              }}
+            >
+              Apellido:
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#E8E8E8",
+                  borderRadius: "25px",
+                  "& fieldset": { border: "none" },
+                },
+              }}
+            />
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                marginBottom: "-0.5rem",
+              }}
+            >
+              Correo Electronico:
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              fullWidth
+              type="email"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#E8E8E8",
+                  borderRadius: "25px",
+                  "& fieldset": { border: "none" },
+                },
+              }}
+            />
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                marginBottom: "-0.5rem",
+              }}
+            >
+              Contraseña:
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              fullWidth
+              type="password"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#E8E8E8",
+                  borderRadius: "25px",
+                  "& fieldset": { border: "none" },
+                },
+              }}
+            />
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                marginBottom: "-0.5rem",
+              }}
+            >
+              Telefono:
+            </Typography>
+            <TextField
+              variant="outlined"
+              size="small"
+              fullWidth
+              type="tel"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#E8E8E8",
+                  borderRadius: "25px",
+                  "& fieldset": { border: "none" },
+                },
+              }}
+            />
 
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: "0.5rem",
+                backgroundColor: "#ff383e",
+                color: "white",
+                fontWeight: "bold",
+                textTransform: "none",
+                borderRadius: "8px",
+                padding: "8px",
+                "&:hover": {
+                  backgroundColor: "#cc0000",
+                },
+              }}
+            >
+              Registrarse
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 };

@@ -378,175 +378,204 @@ const GymMenu = () => {
 
 {/*--------------------------- Modal de Registro -----------------------------------------------------------------------------*/}
 <Modal
-        open={openRegister}
-        onClose={handleCloseRegister}
+  open={openRegister}
+  onClose={handleCloseRegister}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Box
+    sx={{
+      width: { xs: "90%", sm: "80%", md: "70%" },
+      height: { xs: "90vh", sm: "80vh", md: "70vh" },
+      borderRadius: "10px",
+      overflow: "hidden",
+      boxShadow: 24,
+      position: "relative",
+      backgroundImage: `url(${registrarjpg})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      
+    }}
+  >
+    {/* Formulario centrado  */}
+    <Box
+      sx={{
+        width: { xs: "85%", sm: "320px" },
+        padding: "1.5rem",
+        backgroundColor: "rgba(128, 128, 128, 0.85)",
+        borderRadius: "15px",
+        display: "flex",
+        flexDirection: "column",
+        gap: 1.5,
+      }}
+    >
+      <Typography
+        variant="body2"
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          color: "white",
+          marginBottom: "-0.5rem",
+          fontFamily: "Poppins",
         }}
       >
-        <Box
-          sx={{
-            width: { xs: "90%", sm: "80%", md: "70%" },
-            height: { xs: "90vh", sm: "80vh", md: "70vh" },
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: 24,
-            position: "relative",
-            backgroundImage: `url(${registrarjpg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* Formulario centrado */}
-          <Box
-            sx={{
-              width: { xs: "85%", sm: "320px" },
-              padding: "1.5rem",
-              backgroundColor: "rgba(128, 128, 128, 0.85)",
-              borderRadius: "15px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 1.5,
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginBottom: "-0.5rem",
-              }}
-            >
-              Nombre:
-            </Typography>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#E8E8E8",
-                  borderRadius: "25px",
-                  "& fieldset": { border: "none" },
-                },
-              }}
-            />
-            
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginBottom: "-0.5rem",
-              }}
-            >
-              Apellido:
-            </Typography>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#E8E8E8",
-                  borderRadius: "25px",
-                  "& fieldset": { border: "none" },
-                },
-              }}
-            />
-            
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginBottom: "-0.5rem",
-              }}
-            >
-              Correo Electronico:
-            </Typography>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              type="email"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#E8E8E8",
-                  borderRadius: "25px",
-                  "& fieldset": { border: "none" },
-                },
-              }}
-            />
-            
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginBottom: "-0.5rem",
-              }}
-            >
-              Contraseña:
-            </Typography>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              type="password"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#E8E8E8",
-                  borderRadius: "25px",
-                  "& fieldset": { border: "none" },
-                },
-              }}
-            />
-            
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginBottom: "-0.5rem",
-              }}
-            >
-              Telefono:
-            </Typography>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              type="tel"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#E8E8E8",
-                  borderRadius: "25px",
-                  "& fieldset": { border: "none" },
-                },
-              }}
-            />
+        Nombre:
+      </Typography>
+      <TextField
+        variant="outlined"
+        size="small"
+        fullWidth
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#E8E8E8",
+            borderRadius: "25px",
+            "& fieldset": { border: "none" },
+          },
+        }}
+      />
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+          marginBottom: "-0.5rem",
+          fontFamily: "Poppins",
+        }}
+      >
+        Apellido:
+      </Typography>
+      <TextField
+        variant="outlined"
+        size="small"
+        fullWidth
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#E8E8E8",
+            borderRadius: "25px",
+            "& fieldset": { border: "none" },
+          },
+        }}
+      />
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+          marginBottom: "-0.5rem",
+          fontFamily: "Poppins",
+        }}
+      >
+        Correo Electronico:
+      </Typography>
+      <TextField
+        variant="outlined"
+        size="small"
+        fullWidth
+        type="email"
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#E8E8E8",
+            borderRadius: "25px",
+            "& fieldset": { border: "none" },
+          },
+        }}
+      />
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+          marginBottom: "-0.5rem",
+          fontFamily: "Poppins",
+        }}
+      >
+        Contraseña:
+      </Typography>
+      <TextField
+        variant="outlined"
+        size="small"
+        fullWidth
+        type="password"
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#E8E8E8",
+            borderRadius: "25px",
+            "& fieldset": { border: "none" },
+          },
+        }}
+      />
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+          marginBottom: "-0.5rem",
+          fontFamily: "Poppins",
+        }}
+      >
+        Telefono:
+      </Typography>
+      <TextField
+        variant="outlined"
+        size="small"
+        fullWidth
+        type="tel"
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#E8E8E8",
+            borderRadius: "25px",
+            "& fieldset": { border: "none" },
+          },
+        }}
+      />
 
-            <Button
-              variant="contained"
-              sx={{
-                marginTop: "0.5rem",
-                backgroundColor: "#ff383e",
-                color: "white",
-                fontWeight: "bold",
-                textTransform: "none",
-                borderRadius: "8px",
-                padding: "8px",
-                "&:hover": {
-                  backgroundColor: "#cc0000",
-                },
-              }}
-            >
-              Registrarse
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
+      <Button
+        variant="contained"
+        sx={{
+          marginTop: "0.5rem",
+          backgroundColor: "#ff383e",
+          color: "white",
+          fontWeight: "bold",
+          textTransform: "none",
+          borderRadius: "8px",
+          padding: "8px",
+          "&:hover": {
+            backgroundColor: "#cc0000",
+          },
+        }}
+      >
+        Registrarse
+      </Button>
+    </Box>
+
+    {/* Texto motivacional agregado */}
+    <Typography
+      sx={{
+        position: "absolute",
+        right: "5%",
+        top: "50%",
+        transform: "translateY(-50%)",
+        fontFamily: "Anton",
+        fontSize: { md: "3rem", lg: "4rem" },
+        lineHeight: "1.1",
+        color: "#ff383e",
+        textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+        display: { xs: "none", md: "block" },
+        textAlign: "center",
+      }}
+    >
+      TU MEJOR<br />
+      VERSION<br />
+      COMIENZA<br />
+      AHORA.
+    </Typography>
+  </Box>
+</Modal>
+
     </Box>
   );
 };

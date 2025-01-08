@@ -5,6 +5,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import backgroundImage from '../../imgs/background.jpg'; 
 import iniciosesionjpg from '../../imgs/iniciosesion.jpg'; 
 import registrarjpg from '../../imgs/Registrar.jpg'; 
+import IconButton from "@mui/material/IconButton";
 
 const GymMenu = () => {
   const [openLogin, setOpenLogin] = useState(false);
@@ -150,164 +151,232 @@ const GymMenu = () => {
         </Box>
       </Container>
 
-      {/* Modal de Inicio de Sesión */}
+      {/*------------------------ Modal de Inicio de Sesión -------------------------------------------------------------------*/}
+
       <Modal
-        open={openLogin}
-        onClose={handleCloseLogin}
+  open={openLogin}
+  onClose={handleCloseLogin}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: { xs: "column", sm: "row" },
+      width: { xs: "90%", sm: "70%", md: "50%" },
+      height: { xs: "80vh", sm: "60vh" },
+      borderRadius: "10px",
+      overflow: "hidden",
+      boxShadow: 24,
+      position: "relative",
+    }}
+  >
+    {/* Sección Roja */}
+    <Box
+      sx={{
+        flex: 1,
+        backgroundColor: "#ff383e",
+        padding: "2rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start", // Mantiene el contenido en la parte superior
+        position: "relative",
+      }}
+    >
+      {/* Título "CENTRAL GYM" con línea decorativa */}
+      <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          position: "absolute",
+          top: "10px", // Posicionado en la parte superior izquierda
+          left: "10px",
+          width: "90%", // Abarca todo el ancho
         }}
       >
-        <Box
+        <Typography
+          variant="h6"
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            width: { xs: "90%", sm: "70%", md: "50%" },
-            height: { xs: "80vh", sm: "60vh" },
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: 24,
-            position: "relative",
+            fontFamily: "'Anton', sans-serif", // Fuente Anton
+            fontSize: "16px",
+            color: "white",
+            marginRight: "10px",
           }}
         >
-          {/* Sección Roja */}
-          <Box
-            sx={{
-              flex: 1,
-              backgroundColor: "#ff383e",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
-            }}
-          >
-            <Typography
-              variant="h5"
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                marginBottom: "1rem",
-              }}
-            >
-              Usuario:
-            </Typography>
-            <TextField
-              variant="outlined"
-              fullWidth
-              placeholder="Ingrese su usuario"
-              sx={{
-                marginBottom: "1.5rem",
-                backgroundColor: "#FFC1C1",
-                borderRadius: "25px",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "transparent",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "transparent",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "transparent",
-                  },
-                },
-                "& .MuiOutlinedInput-root.Mui-focused": {
-                  backgroundColor: "#FFC1C1",
-                },
-                "& input": {
-                  padding: "12px 16px",
-                  fontSize: "16px",
-                },
-              }}
-            />
+          CENTRAL GYM
+        </Typography>
+        <Box
+          sx={{
+            flex: 1,
+            height: "2px", // Grosor de la línea
+            backgroundColor: "white",
+          }}
+        />
+      </Box>
 
-            <Typography
-              variant="h5"
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                marginBottom: "1rem",
-              }}
-            >
-              Contraseña:
-            </Typography>
-            <TextField
-              type="password"
-              variant="outlined"
-              fullWidth
-              placeholder="Ingrese su contraseña"
-              sx={{
-                backgroundColor: "#FFC1C1",
-                borderRadius: "25px",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "transparent",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "transparent",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "transparent",
-                  },
-                },
-                "& .MuiOutlinedInput-root.Mui-focused": {
-                  backgroundColor: "#FFC1C1",
-                },
-                "& input": {
-                  padding: "12px 16px",
-                  fontSize: "16px",
-                },
-              }}
-            />
+      {/* Inputs */}
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "400px",
+          marginTop: "2rem", // Espaciado para que los inputs estén más abajo
+          alignSelf: "center", // Centra los inputs horizontalmente
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            marginBottom: "1rem",
+            fontFamily: "'Poppins', sans-serif",
+          }}
+        >
+          Usuario:
+        </Typography>
+        <TextField
+          variant="outlined"
+          fullWidth
+          placeholder="Ingrese su usuario"
+          sx={{
+            marginBottom: "1.5rem",
+            backgroundColor: "#FFC1C1",
+            borderRadius: "5px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "transparent",
+              },
+              "&:hover fieldset": {
+                borderColor: "transparent",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "transparent",
+              },
+            },
+            "& input": {
+              padding: "12px 16px",
+              fontSize: "16px",
+            },
+          }}
+        />
 
-            <Button
-              variant="contained"
-              sx={{
-                marginTop: "1.5rem",
-                backgroundColor: "white",
-                color: "#ff383e",
-                fontWeight: "bold",
-                textTransform: "none",
-                borderRadius: "25px",
-                padding: "10px 20px",
-                "&:hover": {
-                  backgroundColor: "#ffecec",
-                },
-              }}
-            >
-              Ingresar
-            </Button>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                marginTop: "1rem",
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-            >
-              ¿Olvidó su Contraseña?
-            </Typography>
-          </Box>
+        <Typography
+          variant="h5"
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            marginBottom: "1rem",
+            fontFamily: "'Poppins', sans-serif",
+          }}
+        >
+          Contraseña:
+        </Typography>
+        <TextField
+          type="password"
+          variant="outlined"
+          fullWidth
+          placeholder="Ingrese su contraseña"
+          sx={{
+            backgroundColor: "#FFC1C1",
+            borderRadius: "5px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "transparent",
+              },
+              "&:hover fieldset": {
+                borderColor: "transparent",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "transparent",
+              },
+            },
+            "& input": {
+              padding: "12px 16px",
+              fontSize: "16px",
+            },
+          }}
+        />
 
-          {/* Sección Negra con Imagen */}
-          <Box
-            sx={{
-              flex: 1,
-              backgroundImage: `url(${iniciosesionjpg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-        </Box>
-      </Modal>
-{/* Modal de Registro */}
+        <Button
+          variant="contained"
+          sx={{
+            marginTop: "1.5rem",
+            backgroundColor: "white",
+            color: "#ff383e",
+            fontWeight: "bold",
+            textTransform: "none",
+            borderRadius: "5px",
+            padding: "10px 20px",
+            "&:hover": {
+              backgroundColor: "#ffecec",
+            },
+          }}
+        >
+          Ingresar
+        </Button>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "white",
+            marginTop: "1rem",
+            cursor: "pointer",
+            textDecoration: "underline",
+            textAlign: "center",
+          }}
+        >
+          ¿Olvidó su Contraseña?
+        </Typography>
+      </Box>
+    
+
+      {/* Botones de redes sociales */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "10px",
+          right: "10px",
+          display: "flex",
+          gap: "-2rem",
+        }}
+      >
+        <IconButton
+          sx={{ color: "white" }}
+          href="https://www.instagram.com"
+          target="_blank"
+        >
+          <InstagramIcon />
+        </IconButton>
+        <IconButton
+          sx={{ color: "white" }}
+          href="https://www.whatsapp.com"
+          target="_blank"
+        >
+          <WhatsAppIcon />
+        </IconButton>
+      </Box>
+    </Box>
+    
+
+    {/* Sección Negra con Imagen */}
+    <Box
+      sx={{
+        flex: 1,
+        backgroundImage: `url(${iniciosesionjpg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      />
+      </Box>
+    </Modal>
+
+
+{/*--------------------------- Modal de Registro -----------------------------------------------------------------------------*/}
 <Modal
         open={openRegister}
         onClose={handleCloseRegister}

@@ -16,6 +16,7 @@ export default function Layout() {
                 marginTop: '0px',
                 padding: "0px",
                 overflowY: "auto",
+                overflowX: 'hidden',
             }}>
                 <Outlet />
             </div>

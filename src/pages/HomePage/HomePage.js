@@ -6,152 +6,265 @@ import backgroundImage from '../../imgs/background.jpg';
 import iniciosesionjpg from '../../imgs/iniciosesion.jpg'; 
 import registrarjpg from '../../imgs/Registrar.jpg'; 
 import IconButton from "@mui/material/IconButton";
+import opcionesImage from '../../imgs/Opciones.jpg';
 
 const GymMenu = () => {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  
+
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
   const handleOpenRegister = () => setOpenRegister(true);
   const handleCloseRegister = () => setOpenRegister(false);
 
   return (
-    <Box
+    <Box sx={{ width: '100vw', overflowX: 'hidden', position: 'relative' }}>
+  {/*-------------------------------------------- Pantalla Principal --------------------------------------------------*/}
+  <Box
+    sx={{
+      height: '100vh', // Altura completa de la ventana
+      width: '100vw', // Ancho completo de la ventana
+      backgroundImage: `url(${backgroundImage})`, // Imagen de fondo
+      backgroundSize: 'cover', // Cubre toda la pantalla manteniendo la proporción
+      backgroundPosition: 'center', // Centrada
+      backgroundRepeat: 'no-repeat', // No se repite
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      padding: { xs: '1rem 1rem 0 1rem', sm: '2rem 2rem 0 2rem', md: '5rem 5rem 0 5rem' },
+      overflow: 'hidden', // Evita desbordamiento
+      marginTop: '40px',
+    }}
+  >
+    {/* Navbar */}
+    <AppBar position="static" sx={{ background: 'transparent', boxShadow: 'none' }}>
+      <Toolbar>
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: 'Anton, sans-serif',
+            fontWeight: 'bold',
+            color: 'white',
+            fontSize: { xs: '1.5rem', sm: '3rem', md: '3.5rem' },
+            mt: -4,
+            textShadow: '2px 2px 5px rgba(0, 0, 0, 0.7)',
+            
+          }}
+        >
+          CENTRAL GYM
+        </Typography>
+      </Toolbar>
+    </AppBar>
+
+    {/* Contenido Principal */}
+    <Container
+      maxWidth="sm"
       sx={{
-        height: '85vh',
+        padding: 0,
         margin: 0,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        paddingLeft: { xs: '1rem', sm: '3rem', md: '5rem' },
-        paddingTop: { xs: '6rem', sm: '9rem', md: '9rem' },
+        gap: 2.5, 
+        
       }}
     >
-      {/* Navbar */}
-      <AppBar position="static" sx={{ background: 'transparent', boxShadow: 'none' }}>
-        <Toolbar>
-          <Typography
-            variant="h6"
-            sx={{
-              fontFamily: 'Anton, sans-serif',
-              fontWeight: 'bold',
-              color: 'white',
-              fontSize: { xs: '2rem', sm: '4rem', md: '5rem' },
-              mt: -3,
-            }}
-          >
-            CENTRAL GYM
-          </Typography>
-        </Toolbar>
-      </AppBar>
+<Typography
+  component="div"
+  sx={{
+    fontFamily: 'Anton, sans-serif',
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#ff383e',
+    fontSize: { xs: '3.5rem', sm: '5rem', md: '6.5rem' },
+    lineHeight: '1.2',
+    mt: -2, // Subir el texto más cerca del navbar
+    textShadow: '2px 2px 5px rgba(0, 0, 0, 0.7)',
+  }}
+>
+  {/* Primera línea */}
+  <Box component="span" sx={{ whiteSpace: 'nowrap', display: 'block' }}>
+    AQUÍ COMIENZA TU
+  </Box>
+  {/* Segunda línea */}
+  <Box component="span" sx={{ display: 'block' }}>
+    TRANSFORMACIÓN
+  </Box>
+</Typography>
 
-      {/* Contenido principal */}
-      <Container
-        maxWidth="sm"
+
+      {/* Botones */}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Button
+          variant="contained"
+          aria-label="Iniciar Sesión"
+          sx={{
+            backgroundColor: '#808080',
+            color: 'white',
+            width: { xs: '180px', sm: '220px' },
+            height: { xs: '50px', sm: '60px' },
+            fontSize: { xs: '1rem', sm: '1.2rem' },
+            textTransform: 'none',
+            borderRadius: '50px',
+            fontWeight: 'bold',
+            '&:hover': { backgroundColor: '#666666' },
+          }}
+          onClick={handleOpenLogin}
+        >
+          Iniciar Sesión
+        </Button>
+        <Button
+          variant="contained"
+          aria-label="¡Regístrate Ahora!"
+          sx={{
+            backgroundColor: '#808080',
+            color: 'white',
+            width: { xs: '180px', sm: '220px' },
+            height: { xs: '50px', sm: '60px' },
+            fontSize: { xs: '1rem', sm: '1.2rem' },
+            textTransform: 'none',
+            borderRadius: '50px',
+            fontWeight: 'bold',
+            '&:hover': { backgroundColor: '#cc0000' },
+          }}
+          onClick={handleOpenRegister}
+        >
+          ¡Regístrate Ahora!
+        </Button>
+      </Box>
+
+      {/* Redes Sociales */}
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <InstagramIcon
+          sx={{
+            color: 'white',
+            fontSize: 40,
+            '&:hover': { color: '#ff383e' },
+          }}
+        />
+        <WhatsAppIcon
+          sx={{
+            color: 'white',
+            fontSize: 40,
+            '&:hover': { color: '#25d366' },
+          }}
+        />
+      </Box>
+    </Container>
+  </Box>
+
+
+
+  
+        {/*-------------------------------------- Sección Nuestras Opciones --------------------------------------*/}
+        <Box
+  sx={{
+    width: '100vw',
+    backgroundImage: `url(${opcionesImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    padding: '20px 0',
+  }}
+>
+  {/* Título "NUESTRAS OPCIONES" */}
+  <Box
+    sx={{
+      position: 'relative',
+      top: '20px',
+      left: '20px',
+      color: '#e7dfdf',
+      fontSize: '46px',
+      fontWeight: 'bold',
+      fontFamily: 'Anton, sans-serif',
+      textAlign: 'left',
+      letterSpacing: '3px',
+      
+    }}
+  >
+    NUESTRAS OPCIONES:
+  </Box>
+
+  {/* Contenedor principal de las opciones */}
+  <Box
+    sx={{
+      display: 'flex', // Activa Flexbox
+      justifyContent: 'center', // Centra horizontalmente
+      gap: '80px', // Espaciado entre columnas
+      marginTop: '100px',
+    }}
+  >
+    {/* Columna de Musculación */}
+    <Box
+      sx={{
+        backgroundColor: '#ff383e',
+        color: 'white',
+        padding: '20px',
+        borderRadius: '10px',
+        textAlign: 'center',
+        maxWidth: '350px',
+        fontSize: '20px',
+        fontWeight: 'bold',
+        fontFamily: "'Poppins', sans-serif",
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Sombreado
+      }}
+    >
+  <Box
         sx={{
-          padding: 0,
-          margin: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
+          backgroundColor: 'rgba(177, 177, 166, 0.29)',
+          padding: '10px',
+          borderRadius: '50px',
+          marginBottom: '5px', // Espaciado inferior
+          fontFamily: "'Poppins', sans-serif",
+          fontSize: '30px',
+
         }}
       >
-        {/* Título */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            width: '100%',
-            whiteSpace: 'normal',
-            overflow: 'visible',
-          }}
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              fontFamily: 'Anton, sans-serif',
-              fontWeight: 'bold',
-              textAlign: 'left',
-              color: '#ff383e',
-              fontSize: { xs: '2.5rem', sm: '4rem', md: '6rem' },
-              lineHeight: '1.1',
-              wordWrap: 'break-word',
-              mt: -3,
-            }}
-          >
-            AQUI EMPIEZA TU TRANSFORMACION.
-          </Typography>
-        </Box>
+        MUSCULACIÓN:
+      </Box>
+      <p>
+        Construye fuerza y potencia con acceso a nuestras máquinas y pesas de última generación. Ideal para quienes buscan definir, ganar masa muscular o tonificar.
+      </p>
+    </Box>
 
-        {/* Botones alineados a la izquierda */}
-        <Box
-          sx={{
-            display: 'flex',
-            textAlign: 'left',
-            flexDirection: 'column',
-            paddingLeft: { xs: '1rem', sm: '2rem' },
-            gap: 2,
-          }}
-        >
-          <Button
-            variant="contained"
-            sx={{
-              fontFamily: 'Poppins, sans-serif',
-              backgroundColor: '#808080',
-              color: 'white',
-              width: { xs: '150px', sm: '200px' },
-              textTransform: 'none',
-              borderRadius: '50px',
-              fontWeight: 'bold',
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-              '&:hover': { backgroundColor: '#666666' },
-            }}
-            onClick={handleOpenLogin}
-          >
-            Iniciar Sesión
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              fontFamily: 'Poppins, sans-serif',
-              backgroundColor: '#808080',
-              color: 'white',
-              width: { xs: '150px', sm: '200px' },
-              textTransform: 'none',
-              borderRadius: '50px',
-              fontWeight: 'bold',
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-              '&:hover': { backgroundColor: '#cc0000' },
-            }}
-            onClick={handleOpenRegister}
-          >
-            ¡Regístrate Ahora!
-          </Button>
-        </Box>
+    {/* Columna de Funcional */}
+    <Box
+      sx={{
+        backgroundColor: '#ff383e',
+        color: 'white',
+        padding: '20px',
+        borderRadius: '10px',
+        textAlign: 'center',
+        maxWidth: '350px',
+        fontSize: '20px',
+        fontWeight: 'bold',
+        fontFamily: "'Poppins', sans-serif",
+        boxShadow: '0 4px 8px rgba(45, 43, 43, 0.2)', // Sombreado
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: 'rgba(177, 177, 166, 0.29)',
+          padding: '10px',
+          borderRadius: '50px',
+          marginBottom: '5px', // Espaciado inferior
+          fontFamily: "'Poppins', sans-serif",
+          fontSize: '30px',
 
-        {/* Iconos de redes sociales */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'left',
-            flexWrap: 'wrap',
-            gap: 2,
-            paddingLeft: { xs: '1.5rem', sm: '5.7rem' },
-          }}
-        >
-          <InstagramIcon sx={{ color: 'white', fontSize: { xs: 24, sm: 30 } }} />
-          <WhatsAppIcon sx={{ color: 'white', fontSize: { xs: 24, sm: 30 } }} />
-        </Box>
-      </Container>
+        }}
+      >
+        FUNCIONAL:
+      </Box>
+      <p>
+        Mejora tu resistencia, coordinación y agilidad con entrenamientos dinámicos y adaptados a todos los niveles. Perfecto para quienes buscan variedad y retos.
+      </p>
+    </Box>
+  </Box>
+</Box>
 
-      {/*------------------------ Modal de Inicio de Sesión -------------------------------------------------------------------*/}
+      
+
+
+{/*------------------------ Modal de Inicio de Sesión -------------------------------------------------------------------*/}
 
       <Modal
   open={openLogin}
@@ -182,7 +295,7 @@ const GymMenu = () => {
         padding: "2rem",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start", // Mantiene el contenido en la parte superior
+        justifyContent: "flex-start", 
         position: "relative",
       }}
     >
@@ -192,15 +305,15 @@ const GymMenu = () => {
           display: "flex",
           alignItems: "center",
           position: "absolute",
-          top: "10px", // Posicionado en la parte superior izquierda
+          top: "10px", 
           left: "10px",
-          width: "90%", // Abarca todo el ancho
+          width: "90%", 
         }}
       >
         <Typography
           variant="h6"
           sx={{
-            fontFamily: "'Anton', sans-serif", // Fuente Anton
+            fontFamily: "'Anton', sans-serif", 
             fontSize: "16px",
             color: "white",
             marginRight: "10px",
@@ -211,7 +324,7 @@ const GymMenu = () => {
         <Box
           sx={{
             flex: 1,
-            height: "2px", // Grosor de la línea
+            height: "2px",
             backgroundColor: "white",
           }}
         />
@@ -222,8 +335,8 @@ const GymMenu = () => {
         sx={{
           width: "100%",
           maxWidth: "400px",
-          marginTop: "2rem", // Espaciado para que los inputs estén más abajo
-          alignSelf: "center", // Centra los inputs horizontalmente
+          marginTop: "2rem", 
+          alignSelf: "center", 
         }}
       >
         <Typography
@@ -374,6 +487,8 @@ const GymMenu = () => {
       />
       </Box>
     </Modal>
+
+
 
 
 {/*--------------------------- Modal de Registro -----------------------------------------------------------------------------*/}

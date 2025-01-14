@@ -61,7 +61,7 @@ const LoginPage = () => {
             flexDirection: "column",
             gap: 2,
             width: "100%",
-            maxWidth: "400px",
+            maxWidth: "300px",
         }}>
             <Typography variant="h3">Login Page</Typography>
           <TextField

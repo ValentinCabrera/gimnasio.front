@@ -7,6 +7,8 @@ import iniciosesionjpg from '../../imgs/iniciosesion.jpg';
 import registrarjpg from '../../imgs/Registrar.jpg'; 
 import IconButton from "@mui/material/IconButton";
 import opcionesImage from '../../imgs/Opciones.jpg';
+import ContactoImage from '../../imgs/Contacto.jpg';
+
 
 const GymMenu = () => {
   const [openLogin, setOpenLogin] = useState(false);
@@ -261,7 +263,103 @@ const GymMenu = () => {
   </Box>
 </Box>
 
-      
+{/*------------------------ Pantalla Contacto -------------------------------------------------------------------*/}
+<Box
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        backgroundImage: `url(${ContactoImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+        padding: '20px',
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+          padding: '30px',
+          borderRadius: '10px',
+          display: 'flex', // Divide el contenedor en columnas
+          gap: '40px', // Espaciado entre columnas
+        }}
+      >
+        {/* Columna Izquierda */}
+        <Box
+          sx={{
+            textAlign: 'left',
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: 'bold',
+              marginBottom: '10px',
+              fontSize: '23px',
+            }}
+          >
+            Central Gym
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              marginBottom: '5px',
+              fontSize: '23px',
+            }}
+          >
+            Dirección: Bruno Ceballos y Av. Naciones
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: '23px',
+            }}
+          >
+            Unidas, Villa María
+          </Typography>
+        </Box>
+
+        {/* Columna Derecha */}
+        <Box
+          sx={{
+            textAlign: 'left',
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              marginBottom: '5px',
+              fontSize: '23px',
+            }}
+          >
+            Tel: +54 353 4412049
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              marginBottom: '5px',
+              fontSize: '23px',
+            }}
+          >
+            Gmail:
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: '23px',
+            }}
+          >
+            Instagram: Central_gym
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
+  
+
+
 
 
 {/*------------------------ Modal de Inicio de Sesión -------------------------------------------------------------------*/}
